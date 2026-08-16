@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { WEDDING } from "@/lib/config";
+
 const NAV_LINKS = [
   { label: "Mempelai", href: "#mempelai" },
   { label: "Jadwal",   href: "#jadwal"   },
@@ -102,9 +104,9 @@ export default function Navbar() {
             style={{ fontSize: "1.1rem", color: "var(--ink-soft)", letterSpacing: "0.01em" }}
             aria-label="Kembali ke atas"
           >
-            <motion.span initial="hidden" animate="visible" variants={brandVariants} transition={{ delay: 0.1 }}>P</motion.span>
+            <motion.span initial="hidden" animate="visible" variants={brandVariants} transition={{ delay: 0.1 }}>{WEDDING.groom.nickname[0]}</motion.span>
             <motion.span initial="hidden" animate="visible" variants={brandVariants} transition={{ delay: 0.2 }}>&amp;</motion.span>
-            <motion.span initial="hidden" animate="visible" variants={brandVariants} transition={{ delay: 0.3 }}>S</motion.span>
+            <motion.span initial="hidden" animate="visible" variants={brandVariants} transition={{ delay: 0.3 }}>{WEDDING.bride.nickname[0]}</motion.span>
           </button>
 
           {/* Desktop links */}

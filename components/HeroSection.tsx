@@ -125,6 +125,18 @@ export default function HeroSection() {
       className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden"
       style={{ background: "var(--ivory)" }}
     >
+      {/* Faded Background Image for Open State */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.12]">
+        <Image
+          src={WEDDING.heroImage}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center md:object-[center_35%]"
+          priority
+        />
+      </div>
+
       <RomanticHearts />
 
       {/* Soft vignette (Main content) */}
@@ -141,7 +153,7 @@ export default function HeroSection() {
           /* ── COVER STATE ── */
           <motion.div
             key="cover"
-            className="fixed inset-0 z-50 flex flex-col items-center justify-end pb-10 sm:pb-14 px-6"
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6"
             style={{ backgroundColor: "var(--ivory-deep)" }}
             initial={{ y: 0 }}
             animate={{ y: stage === "opening" ? "-100%" : 0 }}
@@ -155,18 +167,17 @@ export default function HeroSection() {
                 alt="Foto sampul pernikahan"
                 fill
                 sizes="100vw"
-                className="object-cover"
+                className="object-cover object-center md:object-[center_35%]"
                 priority
               />
             </div>
 
-            {/* Multi-layer gradient overlay for depth */}
+            {/* Multi-layer gradient overlay for depth and center text legibility */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
                 background: `
-                  linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.15) 60%, transparent 100%),
-                  linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 30%)
+                  radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.6) 100%)
                 `,
               }}
             />

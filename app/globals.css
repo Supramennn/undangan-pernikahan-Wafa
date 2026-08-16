@@ -6,22 +6,22 @@
 ───────────────────────────────────────────── */
 :root {
   /* Palette */
-  --ivory:        #FBF8F4;
-  --ivory-warm:   #F5EFE6;
-  --ivory-deep:   #EDE4D6;
-  --blush:        #C9908F;
-  --blush-light:  #E2B9B3;
-  --blush-pale:   #F2DDD9;
-  --gold:         #B8976A;
-  --gold-light:   #D4B896;
-  --gold-pale:    #EEE0CA;
-  --ink:          #2C2420;
-  --ink-soft:     #4A3C35;
-  --ink-muted:    #7A6458;
+  --ivory:        #F0ECE7;
+  --ivory-warm:   #E6DFD6;
+  --ivory-deep:   #D8CFC8;
+  --blush:        #6B2D31;
+  --blush-light:  #8F464A;
+  --blush-pale:   #E3CFCF;
+  --gold:         #9C7754;
+  --gold-light:   #B89673;
+  --gold-pale:    #E0D1C3;
+  --ink:          #1F1614;
+  --ink-soft:     #3A2A26;
+  --ink-muted:    #66514A;
 
   /* Extended palette */
-  --rose:         #D4A0A0;
-  --champagne:    #F5E6D3;
+  --rose:         #5E272A;
+  --champagne:    #E6DFD6;
 
   /* Fonts */
   --font-serif:   'Playfair Display', 'Georgia', serif;
@@ -250,23 +250,21 @@ body {
 ───────────────────────────────────────────── */
 .glass-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(20px) saturate(1.2);
-  -webkit-backdrop-filter: blur(20px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  border-radius: 24px;
+  background: rgba(250, 248, 245, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(156, 119, 84, 0.15); /* subtle gold tint */
+  border-radius: 20px;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 4px 24px rgba(44, 36, 32, 0.06),
-    0 12px 40px rgba(44, 36, 32, 0.08);
+    0 4px 20px rgba(31, 22, 20, 0.03),
+    0 12px 32px rgba(31, 22, 20, 0.04);
   transition: box-shadow 0.4s ease, transform 0.4s ease;
 }
 
 .glass-card:hover {
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 8px 32px rgba(44, 36, 32, 0.08),
-    0 20px 56px rgba(44, 36, 32, 0.11);
+    0 8px 24px rgba(31, 22, 20, 0.05),
+    0 20px 48px rgba(31, 22, 20, 0.06);
 }
 
 /* Subtle top gold shimmer */

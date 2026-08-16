@@ -57,7 +57,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, del
   return (
     <motion.div
       ref={ref}
-      className="glass-card relative w-full max-w-[92vw] sm:max-w-xs sm:flex-1 px-7 py-8 sm:px-8 sm:py-9 flex flex-col gap-5 text-center items-center justify-between z-10"
+      className="glass-card relative w-full max-w-[92vw] sm:max-w-sm sm:flex-1 px-7 py-8 sm:px-10 sm:py-10 flex flex-col gap-5 text-center items-center justify-between z-10"
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       whileHover={{ y: -8, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
@@ -67,11 +67,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, del
         boxShadow: { duration: 0.2 }
       }}
     >
-      {/* Corner Ornaments */}
-      <div className="absolute top-3 left-3 w-4 h-4 border-t border-l border-[var(--gold)] opacity-40 rounded-tl-sm pointer-events-none" />
-      <div className="absolute top-3 right-3 w-4 h-4 border-t border-r border-[var(--gold)] opacity-40 rounded-tr-sm pointer-events-none" />
-      <div className="absolute bottom-3 left-3 w-4 h-4 border-b border-l border-[var(--gold)] opacity-40 rounded-bl-sm pointer-events-none" />
-      <div className="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-[var(--gold)] opacity-40 rounded-br-sm pointer-events-none" />
+      {/* Reduced clutter: removed corner borders */}
 
       {/* Icon badge */}
       <motion.div
@@ -191,7 +187,7 @@ export default function EventSchedule() {
       </motion.div>
 
       {/* Event cards with timeline connector */}
-      <div className="relative z-0 flex flex-col sm:flex-row gap-6 sm:gap-8 items-stretch w-full max-w-2xl justify-center mt-4">
+      <div className="relative z-0 flex flex-col sm:flex-row gap-6 sm:gap-10 items-stretch w-full max-w-4xl justify-center mt-4">
         {/* Connector Line */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-0.5 h-full sm:w-full sm:h-0.5 pointer-events-none z-0" style={{ background: "linear-gradient(to bottom, transparent, var(--gold-pale), transparent)" }}>
            {/* Desktop horizontal override */}

@@ -44,19 +44,19 @@ function TimeUnit({
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.6, ease: "easeOut" }}
     >
-      <div className="relative w-16 h-[72px] sm:w-20 sm:h-[88px] flex items-center justify-center rounded-xl overflow-hidden border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]" style={{ background: "rgba(255,255,255,0.3)", backdropFilter: "blur(4px)" }}>
+      <div className="relative flex items-center justify-center">
         <motion.span
           key={value}
-          className="time-unit__value absolute"
+          className="time-unit__value"
           initial={{ opacity: 0.6, scale: 0.8, y: -5 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.3, type: "spring" }}
-          style={{ color: "var(--ink)", fontWeight: 400, fontSize: "1.5rem" }}
+          style={{ color: "var(--ink)", fontWeight: 400, fontSize: "clamp(2rem, 6vw, 3rem)" }}
         >
           {String(value).padStart(2, "0")}
         </motion.span>
       </div>
-      <span className="time-unit__label mt-2" style={{ fontWeight: 500, letterSpacing: "0.05em" }}>{label}</span>
+      <span className="time-unit__label mt-1" style={{ fontWeight: 500, letterSpacing: "0.1em" }}>{label}</span>
     </motion.div>
   );
 }
@@ -166,7 +166,7 @@ export default function CountdownTimer() {
 
         {/* Countdown card */}
         <motion.div
-          className="glass-card relative px-6 py-8 sm:px-12 sm:py-10 w-full max-w-[92vw] sm:max-w-lg overflow-hidden"
+          className="glass-card relative px-6 py-8 sm:px-14 sm:py-12 w-full max-w-[92vw] sm:max-w-xl overflow-hidden"
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2, duration: 0.8 }}
@@ -183,9 +183,9 @@ export default function CountdownTimer() {
             transition={{ duration: 3, repeat: Infinity, repeatDelay: 2, ease: "linear" }}
           />
 
-          <div className="relative z-10">
+          <div className="relative z-10 flex justify-center">
             {time ? (
-              <div className="flex items-end justify-center gap-3 sm:gap-6 md:gap-8 w-full">
+              <div className="flex items-end justify-center gap-4 sm:gap-8">
                 <TimeUnit value={time.days}    label="Hari"   delay={0.3} />
                 <Separator />
                 <TimeUnit value={time.hours}   label="Jam"    delay={0.4} />
@@ -195,13 +195,13 @@ export default function CountdownTimer() {
                 <TimeUnit value={time.seconds} label="Detik"  delay={0.6} />
               </div>
             ) : (
-              <div className="flex items-end gap-5 sm:gap-8">
+              <div className="flex items-end justify-center gap-4 sm:gap-8">
                 {["Hari","Jam","Menit","Detik"].map((l) => (
                   <div key={l} className="time-unit flex flex-col items-center opacity-30">
-                    <div className="w-16 h-[72px] sm:w-20 sm:h-[88px] flex items-center justify-center rounded-xl border border-white/20" style={{ background: "rgba(255,255,255,0.3)" }}>
-                      <span className="time-unit__value">--</span>
+                    <div className="flex items-center justify-center">
+                      <span className="time-unit__value" style={{ fontSize: "clamp(2rem, 6vw, 3rem)" }}>--</span>
                     </div>
-                    <span className="time-unit__label mt-2">{l}</span>
+                    <span className="time-unit__label mt-1">{l}</span>
                   </div>
                 ))}
               </div>
@@ -211,7 +211,7 @@ export default function CountdownTimer() {
 
         {/* Venue card */}
         <motion.div
-          className="glass-card relative px-8 py-8 sm:px-12 sm:py-10 w-full max-w-[92vw] sm:max-w-lg text-center flex flex-col items-center gap-5"
+          className="glass-card relative px-8 py-8 sm:px-14 sm:py-10 w-full max-w-[92vw] sm:max-w-md text-center flex flex-col items-center gap-6"
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4, duration: 0.8 }}
@@ -219,11 +219,7 @@ export default function CountdownTimer() {
             border: "1px solid rgba(184,151,106,0.3)",
           }}
         >
-          {/* Ornamental corner borders */}
-          <div className="absolute top-2 left-2 w-6 h-6 border-t border-l border-[var(--gold-pale)] opacity-60 rounded-tl-sm pointer-events-none" />
-          <div className="absolute top-2 right-2 w-6 h-6 border-t border-r border-[var(--gold-pale)] opacity-60 rounded-tr-sm pointer-events-none" />
-          <div className="absolute bottom-2 left-2 w-6 h-6 border-b border-l border-[var(--gold-pale)] opacity-60 rounded-bl-sm pointer-events-none" />
-          <div className="absolute bottom-2 right-2 w-6 h-6 border-b border-r border-[var(--gold-pale)] opacity-60 rounded-br-sm pointer-events-none" />
+          {/* Reduced clutter: removed heavy corner borders */}
 
           <span className="label">Lokasi Acara</span>
 
