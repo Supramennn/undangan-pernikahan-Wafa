@@ -3,15 +3,72 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import dynamic from "next/dynamic";
 import { WEDDING } from "@/lib/config";
-
-const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
-import floralAnimation from "@/public/lottie/floral-ambient.json";
 
 type Stage = "closed" | "opening" | "open";
 
-/* ── Floating particle component ── */
+/* ── Romantic Floating Hearts ── */
+function RomanticHearts() {
+  const [hearts, setHearts] = useState<{ id: number; left: number; size: number; duration: number; delay: number }[]>([]);
+
+  useEffect(() => {
+    // Generate random hearts for the background
+    const newHearts = Array.from({ length: 15 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100, // 0 to 100%
+      size: Math.random() * 12 + 10, // 10px to 22px
+      duration: Math.random() * 5 + 7, // 7s to 12s
+      delay: Math.random() * 5, // 0s to 5s delay
+    }));
+    setHearts(newHearts);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      {hearts.map((heart) => (
+        <motion.svg
+          key={heart.id}
+          viewBox="0 0 24 24"
+          fill="var(--blush)"
+          opacity="0.25"
+          className="absolute bottom-[-10%]"
+          style={{ width: heart.size, height: heart.size, left: `${heart.left}%` }}
+          initial={{ y: 0, opacity: 0, rotate: -20, scale: 0.5 }}
+          animate={{
+            y: ["0vh", "-110vh"],
+            opacity: [0, 0.4, 0.8, 0],
+            rotate: [-20, 20, -10, 15],
+            x: ["0px", "30px", "-20px", "10px"],
+            scale: [0.5, 1, 1, 0.8],
+          }}
+          transition={{
+            duration: heart.duration,
+            delay: heart.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </motion.svg>
+      ))}
+      {/* Soft glows to compliment the hearts */}
+      <motion.div
+        className="absolute rounded-full"
+        style={{ width: 400, height: 400, top: "-10%", left: "-10%", background: "radial-gradient(circle, rgba(201,144,143,0.08) 0%, transparent 70%)" }}
+        animate={{ scale: [1, 1.1, 1], opacity: [0.6, 0.8, 0.6] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute rounded-full"
+        style={{ width: 350, height: 350, bottom: "-5%", right: "-10%", background: "radial-gradient(circle, rgba(184,151,106,0.08) 0%, transparent 70%)" }}
+        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.7, 0.5] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      />
+    </div>
+  );
+}
+
+/* ── Floating particle component (for cover) ── */
 function FloatingParticle({ delay, x, size }: { delay: number; x: number; size: number }) {
   return (
     <motion.div
@@ -68,10 +125,7 @@ export default function HeroSection() {
       className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden"
       style={{ background: "var(--ivory)" }}
     >
-      {/* Lottie ambient — very subtle (Main content) */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-25">
-        <Lottie animationData={floralAnimation} loop autoplay className="w-full h-full object-cover" />
-      </div>
+      <RomanticHearts />
 
       {/* Soft vignette (Main content) */}
       <div
