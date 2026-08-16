@@ -8,6 +8,8 @@ import RSVPForm       from "@/components/RSVPForm";
 import GiftSection    from "@/components/GiftSection";
 import Guestbook      from "@/components/Guestbook";
 import MusicPlayer    from "@/components/MusicPlayer";
+import SectionDivider from "@/components/SectionDivider";
+import GlobalParticles from "@/components/GlobalParticles";
 import { WEDDING }    from "@/lib/config";
 
 export default function Home() {
@@ -17,26 +19,40 @@ export default function Home() {
       <MusicPlayer />
 
       <main>
+        <GlobalParticles />
+        
         {/* Hero — amplop interaktif */}
         <HeroSection />
 
         {/* Mempelai */}
         <CoupleSection />
 
+        <SectionDivider type="line" />
+
         {/* Countdown + venue */}
         <CountdownTimer />
+
+        <SectionDivider type="line" />
 
         {/* Jadwal acara */}
         <EventSchedule />
 
+        <SectionDivider type="line" />
+
         {/* Galeri */}
         <GallerySection />
+
+        <SectionDivider type="line" />
 
         {/* RSVP */}
         <RSVPForm />
 
+        <SectionDivider type="line" />
+
         {/* Amplop digital */}
         <GiftSection />
+
+        <SectionDivider type="line" />
 
         {/* Buku tamu */}
         <Guestbook />

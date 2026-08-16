@@ -57,7 +57,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, del
   return (
     <motion.div
       ref={ref}
-      className="glass-card relative w-full max-w-[92vw] sm:max-w-sm sm:flex-1 px-7 py-8 sm:px-10 sm:py-10 flex flex-col gap-5 text-center items-center justify-between z-10"
+      className="glass-card relative w-full max-w-[92vw] sm:max-w-md sm:flex-1 p-6 pt-12 sm:p-8 sm:pt-14 flex flex-col gap-6 text-center items-center justify-between z-10 mt-6 lg:mt-0"
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       whileHover={{ y: -8, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
@@ -71,7 +71,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, del
 
       {/* Icon badge */}
       <motion.div
-        className="w-14 h-14 rounded-full flex items-center justify-center text-2xl relative"
+        className="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full flex items-center justify-center text-2xl z-20"
         style={{
           background: "linear-gradient(135deg, var(--blush-pale), var(--gold-pale))",
           border: "1px solid rgba(184,151,106,0.2)",
@@ -87,12 +87,12 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, del
 
       {/* Type */}
       <div>
-        <p className="label" style={{ color: "var(--gold)", letterSpacing: "0.18em" }}>
+        <p className="text-xs sm:text-sm font-medium uppercase tracking-[0.18em]" style={{ color: "var(--gold)" }}>
           {type}
         </p>
         <p
-          className="display mt-1"
-          style={{ fontSize: "clamp(1.1rem, 3vw, 1.35rem)", color: "var(--ink)" }}
+          className="display mt-2 text-xl sm:text-2xl"
+          style={{ color: "var(--ink)" }}
         >
           {formatDate(dateTime, { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
         </p>
@@ -187,24 +187,24 @@ export default function EventSchedule() {
       </motion.div>
 
       {/* Event cards with timeline connector */}
-      <div className="relative z-0 flex flex-col sm:flex-row gap-6 sm:gap-10 items-stretch w-full max-w-4xl justify-center mt-4">
+      <div className="relative z-0 flex flex-col lg:flex-row gap-8 lg:gap-14 items-center lg:items-stretch w-full max-w-5xl justify-center mt-6">
         {/* Connector Line */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-0.5 h-full sm:w-full sm:h-0.5 pointer-events-none z-0" style={{ background: "linear-gradient(to bottom, transparent, var(--gold-pale), transparent)" }}>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-0.5 h-full lg:w-full lg:h-0.5 pointer-events-none z-0" style={{ background: "linear-gradient(to bottom, transparent, var(--gold-pale), transparent)" }}>
            {/* Desktop horizontal override */}
            <style jsx>{`
-             @media (min-width: 640px) {
+             @media (min-width: 1024px) {
                div { background: linear-gradient(to right, transparent, var(--gold-pale), transparent) !important; }
              }
            `}</style>
            {/* Animated dot moving along timeline */}
            <motion.div 
-             className="absolute w-2 h-2 rounded-full hidden sm:block"
+             className="absolute w-2 h-2 rounded-full hidden lg:block"
              style={{ background: "var(--blush)", top: "-3px", left: "0%" }}
              animate={{ left: ["0%", "100%", "0%"] }}
              transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
            />
            <motion.div 
-             className="absolute w-2 h-2 rounded-full sm:hidden block"
+             className="absolute w-2 h-2 rounded-full lg:hidden block"
              style={{ background: "var(--blush)", left: "-3px", top: "0%" }}
              animate={{ top: ["0%", "100%", "0%"] }}
              transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}

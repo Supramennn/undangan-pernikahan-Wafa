@@ -67,7 +67,7 @@ export default function RSVPForm() {
 
       {/* Card */}
       <motion.div
-        className="glass-card relative z-10 w-full max-w-[92vw] sm:max-w-lg px-6 py-8 sm:px-10 sm:py-10"
+        className="glass-card relative z-10 w-full max-w-[92vw] sm:max-w-lg p-6 sm:p-8"
         initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.2, duration: 0.8 }}
@@ -226,7 +226,7 @@ export default function RSVPForm() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Tulis ucapan untuk kedua mempelai…"
-                  rows={3}
+                  rows={2}
                   className="field-input resize-none transition-all duration-300 focus:ring-2 focus:ring-[var(--blush-pale)] focus:border-[var(--blush)] outline-none"
                 />
               </div>

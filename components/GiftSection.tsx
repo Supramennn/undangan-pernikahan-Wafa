@@ -45,7 +45,7 @@ function BankCard({
   return (
     <motion.div
       ref={ref}
-      className="glass-card relative w-full px-6 py-6 sm:px-8 sm:py-7"
+      className="relative w-full"
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -60,9 +60,9 @@ function BankCard({
             {bank}
           </p>
           <p
+            className="text-xl sm:text-2xl mt-1"
             style={{
               fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.3rem, 4vw, 1.7rem)",
               color: "var(--ink)",
               letterSpacing: "0.12em",
               fontWeight: 600,
@@ -123,13 +123,7 @@ function BankCard({
         </motion.button>
       </div>
 
-      {/* Shimmer Sweep Animation */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none"
-        initial={{ x: "-150%", skewX: -20 }}
-        animate={{ x: "200%" }}
-        transition={{ repeat: Infinity, duration: 2.5, repeatDelay: 3 + delay * 2, ease: "easeInOut" }}
-      />
+      <div className="hr-thin w-full mt-6 opacity-40" />
     </motion.div>
   );
 }
@@ -175,50 +169,51 @@ export default function GiftSection() {
         </p>
       </motion.div>
 
-      {/* Gift icon */}
-      <motion.div
-        className="mb-10 relative"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={inView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ delay: 0.15, duration: 0.6 }}
-      >
+      {/* Bank cards container */}
+      <div className="glass-card relative z-10 flex flex-col gap-6 w-full max-w-[92vw] sm:max-w-lg p-6 pt-14 sm:p-8 sm:pt-16 mt-8">
+        
+        {/* Gift icon positioned exactly at top edge */}
         <motion.div
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="relative z-10"
+          className="absolute -top-8 left-1/2 -translate-x-1/2 z-20"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ delay: 0.15, duration: 0.6 }}
         >
-          <div
-            className="w-16 h-16 rounded-full flex items-center justify-center text-2xl relative"
-            style={{
-              background: "linear-gradient(135deg, var(--blush-pale), var(--gold-pale))",
-              border: "1px solid rgba(184,151,106,0.2)",
-            }}
+          <motion.div
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="relative z-10"
           >
-            {/* Gentle pulsing glow */}
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              style={{ background: "var(--blush)", opacity: 0.2 }}
-              animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0, 0.3] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            />
-            🎁
-          </div>
+            <div
+              className="w-16 h-16 rounded-full flex items-center justify-center text-2xl relative"
+              style={{
+                background: "linear-gradient(135deg, var(--blush-pale), var(--gold-pale))",
+                border: "1px solid rgba(184,151,106,0.2)",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{ background: "var(--blush)", opacity: 0.2 }}
+                animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0, 0.3] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              />
+              🎁
+            </div>
+          </motion.div>
+
+          {/* Orbiting decorations */}
+          <motion.div 
+            className="absolute inset-0 pointer-events-none"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          >
+            <div className="absolute top-0 left-0 w-3 h-3 text-[var(--gold)]">✦</div>
+            <div className="absolute bottom-1 right-2 w-3 h-3 text-[var(--blush)]" style={{ fontSize: "10px" }}>❤</div>
+            <div className="absolute top-4 right-[-8px] w-3 h-3 text-[var(--gold)] text-xs">✧</div>
+          </motion.div>
         </motion.div>
 
-        {/* Orbiting decorations */}
-        <motion.div 
-          className="absolute inset-0 pointer-events-none"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        >
-          <div className="absolute top-0 left-0 w-3 h-3 text-[var(--gold)]">✦</div>
-          <div className="absolute bottom-1 right-2 w-3 h-3 text-[var(--blush)]" style={{ fontSize: "10px" }}>❤</div>
-          <div className="absolute top-4 right-[-8px] w-3 h-3 text-[var(--gold)] text-xs">✧</div>
-        </motion.div>
-      </motion.div>
-
-      {/* Bank cards */}
-      <div className="relative z-10 flex flex-col gap-4 w-full max-w-[92vw] sm:max-w-lg">
         {WEDDING.bankAccounts.map((acc, i) => (
           <BankCard
             key={acc.bank}

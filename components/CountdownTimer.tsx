@@ -17,15 +17,7 @@ function getTimeLeft() {
   };
 }
 
-/* ── Dot separator ── */
-function Separator() {
-  return (
-    <div className="flex flex-col gap-1.5 items-center self-center pb-4">
-      <span className="block w-1 h-1 rounded-full" style={{ background: "var(--gold-light)", opacity: 0.7 }} />
-      <span className="block w-1 h-1 rounded-full" style={{ background: "var(--gold-light)", opacity: 0.7 }} />
-    </div>
-  );
-}
+/* ── Dot separator removed for cleaner box layout ── */
 
 /* ── Animated time unit ── */
 function TimeUnit({
@@ -39,24 +31,27 @@ function TimeUnit({
 }) {
   return (
     <motion.div
-      className="time-unit flex flex-col items-center justify-center relative"
+      className="flex flex-col items-center justify-center relative"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.6, ease: "easeOut" }}
     >
-      <div className="relative flex items-center justify-center">
+      <div 
+        className="relative flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-xl"
+        style={{ border: "1px solid rgba(184,151,106,0.25)", background: "rgba(255,255,255,0.4)" }}
+      >
         <motion.span
           key={value}
-          className="time-unit__value"
+          className="text-2xl sm:text-3xl"
           initial={{ opacity: 0.6, scale: 0.8, y: -5 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.3, type: "spring" }}
-          style={{ color: "var(--ink)", fontWeight: 400, fontSize: "clamp(2rem, 6vw, 3rem)" }}
+          style={{ color: "var(--ink)", fontWeight: 400 }}
         >
           {String(value).padStart(2, "0")}
         </motion.span>
       </div>
-      <span className="time-unit__label mt-1" style={{ fontWeight: 500, letterSpacing: "0.1em" }}>{label}</span>
+      <span className="mt-2 text-[10px] sm:text-xs uppercase tracking-wider" style={{ fontWeight: 500, color: "var(--ink-muted)" }}>{label}</span>
     </motion.div>
   );
 }
@@ -166,7 +161,7 @@ export default function CountdownTimer() {
 
         {/* Countdown card */}
         <motion.div
-          className="glass-card relative px-6 py-8 sm:px-14 sm:py-12 w-full max-w-[92vw] sm:max-w-xl overflow-hidden"
+          className="glass-card relative p-6 sm:p-8 w-full max-w-[92vw] sm:max-w-lg overflow-hidden"
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2, duration: 0.8 }}
@@ -185,23 +180,23 @@ export default function CountdownTimer() {
 
           <div className="relative z-10 flex justify-center">
             {time ? (
-              <div className="flex items-end justify-center gap-4 sm:gap-8">
+              <div className="flex items-end justify-center gap-3 sm:gap-5 w-full">
                 <TimeUnit value={time.days}    label="Hari"   delay={0.3} />
-                <Separator />
                 <TimeUnit value={time.hours}   label="Jam"    delay={0.4} />
-                <Separator />
                 <TimeUnit value={time.minutes} label="Menit"  delay={0.5} />
-                <Separator />
                 <TimeUnit value={time.seconds} label="Detik"  delay={0.6} />
               </div>
             ) : (
-              <div className="flex items-end justify-center gap-4 sm:gap-8">
+              <div className="flex items-end justify-center gap-3 sm:gap-5 w-full">
                 {["Hari","Jam","Menit","Detik"].map((l) => (
-                  <div key={l} className="time-unit flex flex-col items-center opacity-30">
-                    <div className="flex items-center justify-center">
-                      <span className="time-unit__value" style={{ fontSize: "clamp(2rem, 6vw, 3rem)" }}>--</span>
+                  <div key={l} className="flex flex-col items-center opacity-30">
+                    <div 
+                      className="relative flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-xl"
+                      style={{ border: "1px solid rgba(184,151,106,0.25)", background: "rgba(255,255,255,0.4)" }}
+                    >
+                      <span className="text-2xl sm:text-3xl">--</span>
                     </div>
-                    <span className="time-unit__label mt-1">{l}</span>
+                    <span className="mt-2 text-[10px] sm:text-xs uppercase tracking-wider">{l}</span>
                   </div>
                 ))}
               </div>
@@ -211,7 +206,7 @@ export default function CountdownTimer() {
 
         {/* Venue card */}
         <motion.div
-          className="glass-card relative px-8 py-8 sm:px-14 sm:py-10 w-full max-w-[92vw] sm:max-w-md text-center flex flex-col items-center gap-6"
+          className="glass-card relative p-6 sm:p-8 w-full max-w-[92vw] sm:max-w-lg text-center flex flex-col items-center gap-6"
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4, duration: 0.8 }}

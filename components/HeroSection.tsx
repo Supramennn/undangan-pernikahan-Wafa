@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { WEDDING } from "@/lib/config";
 
-type Stage = "closed" | "opening" | "open";
+type Stage = "preloading" | "closed" | "opening" | "open";
 
 /* ── Romantic Floating Hearts ── */
 function RomanticHearts() {
@@ -97,8 +97,16 @@ function FloatingParticle({ delay, x, size }: { delay: number; x: number; size: 
 
 /* ──── Main component ──── */
 export default function HeroSection() {
-  const [stage, setStage] = useState<Stage>("closed");
+  const [stage, setStage] = useState<Stage>("preloading");
   const [guestName, setGuestName] = useState("");
+
+  useEffect(() => {
+    // Elegant preloader before showing the cover
+    const timer = setTimeout(() => {
+      setStage("closed");
+    }, 1800);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = stage === "open" ? "" : "hidden";
@@ -149,7 +157,30 @@ export default function HeroSection() {
       />
 
       <AnimatePresence mode="wait">
-        {stage !== "open" ? (
+        {stage === "preloading" ? (
+          <motion.div
+            key="preloader"
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6"
+            style={{ backgroundColor: "var(--ivory)" }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+          >
+            <motion.div
+              className="w-10 h-10 rounded-full"
+              style={{ border: "1px solid rgba(184,151,106,0.3)", borderTopColor: "var(--gold)" }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.p
+              className="script text-xl"
+              style={{ color: "var(--ink-muted)", letterSpacing: "0.1em" }}
+              animate={{ opacity: [0.4, 0.8, 0.4] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              {WEDDING.groom.nickname[0]} &amp; {WEDDING.bride.nickname[0]}
+            </motion.p>
+          </motion.div>
+        ) : stage !== "open" ? (
           /* ── COVER STATE ── */
           <motion.div
             key="cover"
@@ -208,7 +239,7 @@ export default function HeroSection() {
 
               <motion.h2
                 style={{ fontFamily: "var(--font-sans)" }}
-                className="text-xs sm:text-sm tracking-[0.35em] uppercase opacity-80 mb-3"
+                className="text-xs sm:text-sm tracking-[0.35em] uppercase opacity-80 mb-2"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 0.8, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.7 }}
@@ -237,7 +268,7 @@ export default function HeroSection() {
               </motion.span>
 
               <motion.h1
-                className="script text-5xl sm:text-6xl md:text-7xl text-white mb-5"
+                className="script text-5xl sm:text-6xl md:text-7xl text-white mb-10 pb-2 sm:pb-4"
                 style={{ textShadow: "0 2px 16px rgba(0,0,0,0.35)", lineHeight: 1.1 }}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -252,7 +283,7 @@ export default function HeroSection() {
                   width: 60,
                   height: 1,
                   background: "linear-gradient(90deg, transparent, rgba(212,184,150,0.6), transparent)",
-                  marginBottom: 16,
+                  marginBottom: 24,
                 }}
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
@@ -261,7 +292,7 @@ export default function HeroSection() {
               
               <motion.p
                 style={{ fontFamily: "var(--font-sans)" }}
-                className="text-xs sm:text-sm opacity-75 leading-relaxed mb-5 max-w-[280px] sm:max-w-sm tracking-wide"
+                className="text-xs sm:text-sm opacity-75 leading-relaxed mb-6 max-w-[280px] sm:max-w-sm tracking-wide"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.75 }}
                 transition={{ delay: 1.1, duration: 0.7 }}
@@ -317,23 +348,9 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Decorative top ornament */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 0.5, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.8 }}
-            >
-              <svg width="40" height="20" viewBox="0 0 40 20" fill="none" aria-hidden="true">
-                <path
-                  d="M20 0C20 0 16 7 10 10C4 13 0 10 0 10C0 10 7 17 13 17C17 17 20 14 20 14C20 14 23 17 27 17C33 17 40 10 40 10C40 10 36 13 30 10C24 7 20 0 20 0Z"
-                  fill="var(--gold-light)" opacity="0.5"
-                />
-              </svg>
-            </motion.div>
-
             {/* Small label */}
             <motion.p
-              className="label mt-4"
+              className="label mt-8 mb-4"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.7 }}
@@ -343,7 +360,7 @@ export default function HeroSection() {
 
             {/* Ornament */}
             <motion.div
-              className="hr-vertical my-5"
+              className="hr-vertical mb-6"
               style={{ height: 48, transformOrigin: "top" }}
               initial={{ scaleY: 0 }}
               animate={{ scaleY: 1 }}
@@ -367,11 +384,10 @@ export default function HeroSection() {
             </motion.h1>
 
             <motion.span
-              className="script"
+              className="script my-2"
               style={{
                 fontSize: "clamp(1.5rem, 6vw, 2.5rem)",
                 color: "var(--blush)",
-                marginBlock: "4px 4px",
                 lineHeight: 1.4,
               }}
               initial={{ opacity: 0, scale: 0.7 }}
@@ -388,6 +404,8 @@ export default function HeroSection() {
                 color: "var(--ink)",
                 lineHeight: 1.05,
                 letterSpacing: "-0.01em",
+                paddingBottom: "1.5rem", /* Extra padding for descenders */
+                marginBottom: "1rem"
               }}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -398,8 +416,7 @@ export default function HeroSection() {
 
             {/* Thin rule */}
             <motion.div
-              className="hr-thin hr-thin--lg"
-              style={{ marginBlock: "28px" }}
+              className="hr-thin hr-thin--lg mt-4 mb-8"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ delay: 1.2, duration: 0.6 }}

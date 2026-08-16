@@ -258,13 +258,14 @@ body {
   box-shadow:
     0 4px 20px rgba(31, 22, 20, 0.03),
     0 12px 32px rgba(31, 22, 20, 0.04);
-  transition: box-shadow 0.4s ease, transform 0.4s ease;
+  transition: box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .glass-card:hover {
+  transform: translateY(-2px);
   box-shadow:
-    0 8px 24px rgba(31, 22, 20, 0.05),
-    0 20px 48px rgba(31, 22, 20, 0.06);
+    0 12px 32px rgba(31, 22, 20, 0.06),
+    0 24px 64px rgba(31, 22, 20, 0.08);
 }
 
 /* Subtle top gold shimmer */
@@ -427,7 +428,7 @@ body {
   text-transform: uppercase;
   border: none;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   min-height: 52px;
   position: relative;
   overflow: hidden;
@@ -439,13 +440,13 @@ body {
   inset: 0;
   background: linear-gradient(135deg, transparent, rgba(255,255,255,0.08), transparent);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s ease;
 }
 
 .btn-primary:hover { 
   background: linear-gradient(135deg, var(--ink-soft), var(--ink));
-  box-shadow: 0 6px 24px rgba(44, 36, 32, 0.2);
-  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(44, 36, 32, 0.25);
+  transform: translateY(-2px) scale(1.02);
 }
 .btn-primary:hover::before { opacity: 1; }
 .btn-primary:active { transform: translateY(0) scale(0.98); }

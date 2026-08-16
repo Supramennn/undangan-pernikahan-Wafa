@@ -96,10 +96,9 @@ export default function Guestbook() {
         </p>
       </motion.div>
 
-      {/* Entries card */}
       <motion.div
         className="glass-card relative z-10 w-full max-w-[92vw] sm:max-w-lg
-          px-6 py-6 sm:px-8 sm:py-8
+          p-6 sm:p-8
           max-h-[440px] sm:max-h-[520px] overflow-y-auto scroll-elegant"
         initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
