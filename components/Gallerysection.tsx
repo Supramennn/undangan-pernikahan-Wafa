@@ -76,7 +76,7 @@ export default function GallerySection() {
               alt={photo.alt}
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
               style={{ transition: "transform 0.7s cubic-bezier(0.33, 1, 0.68, 1)" }}
             />
             {/* Hover overlay */}
@@ -160,7 +160,7 @@ export default function GallerySection() {
                 alt={photos[active].alt}
                 fill
                 sizes="90vw"
-                className="object-cover"
+                className="object-cover object-top"
                 style={{ borderRadius: 16, boxShadow: "0 32px 80px rgba(0,0,0,0.5)" }}
                 priority
               />
