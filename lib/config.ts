@@ -9,7 +9,7 @@ export const WEDDING = {
   //  SAMPUL (HERO COVER)
   // ──────────────────────────────────────────────────
   /** Foto background layar penuh untuk halaman paling depan */
-  heroImage: "/couple/cover.jpg",
+  heroImage: "/couple/cover.webp",
 
   // ──────────────────────────────────────────────────
   //  MEMPELAI PRIA
@@ -23,10 +23,10 @@ export const WEDDING = {
     parentInfo: "Putra dari Alm. Bapak H Abdul Rouf & Ibu Hj Rokhmatillah",
     /**
      * Foto profil mempelai pria.
-     * Letakkan file foto Anda di: public/couple/groom.jpg
+     * Letakkan file foto Anda di: public/couple/groom.webp
      * (bisa juga .png atau .webp, sesuaikan ekstensinya di sini)
      */
-    photo: "/couple/groom.jpg",
+    photo: "/couple/groom.webp",
   },
 
   // ──────────────────────────────────────────────────
@@ -41,9 +41,9 @@ export const WEDDING = {
     parentInfo: "Putri dari Bapak Karno & Ibu Siti Khotimah",
     /**
      * Foto profil mempelai wanita.
-     * Letakkan file foto Anda di: public/couple/bride.jpg
+     * Letakkan file foto Anda di: public/couple/bride.webp
      */
-    photo: "/couple/bride.jpg",
+    photo: "/couple/bride.webp",
   },
 
   // ──────────────────────────────────────────────────

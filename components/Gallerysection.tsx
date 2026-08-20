@@ -5,11 +5,11 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const photos = [
-  { src: "/gallery/photo-1.jpg", alt: "Momen bersama 1", span: "tall" },
-  { src: "/gallery/photo-2.jpg", alt: "Momen bersama 2", span: "normal" },
-  { src: "/gallery/photo-3.jpg", alt: "Momen bersama 3", span: "normal" },
-  { src: "/gallery/photo-4.jpg", alt: "Momen bersama 4", span: "normal" },
-  { src: "/gallery/photo-5.jpg", alt: "Momen bersama 5", span: "normal" },
+  { src: "/gallery/photo-1.webp", alt: "Momen bersama 1", span: "tall" },
+  { src: "/gallery/photo-2.webp", alt: "Momen bersama 2", span: "normal" },
+  { src: "/gallery/photo-3.webp", alt: "Momen bersama 3", span: "normal" },
+  { src: "/gallery/photo-4.webp", alt: "Momen bersama 4", span: "normal" },
+  { src: "/gallery/photo-5.webp", alt: "Momen bersama 5", span: "normal" },
 ] as const;
 
 export default function GallerySection() {
