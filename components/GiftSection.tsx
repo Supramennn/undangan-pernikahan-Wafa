@@ -45,83 +45,82 @@ function BankCard({
   return (
     <motion.div
       ref={ref}
-      className="relative w-full"
+      className="relative w-full flex flex-col items-center text-center gap-5"
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="flex items-center justify-between gap-4 flex-wrap">
-        {/* Bank info */}
-        <div>
-          <p
-            className="label"
-            style={{ color: "var(--gold)", letterSpacing: "0.18em", marginBottom: 6 }}
-          >
-            {bank}
-          </p>
-          <p
-            className="text-xl sm:text-2xl mt-1"
-            style={{
-              fontFamily: "var(--font-serif)",
-              color: "var(--ink)",
-              letterSpacing: "0.12em",
-              fontWeight: 600,
-              textShadow: "0 1px 2px rgba(0,0,0,0.05)"
-            }}
-          >
-            {number}
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.8rem",
-              fontWeight: 300,
-              color: "var(--ink-muted)",
-              marginTop: 4,
-            }}
-          >
-            a/n {holder}
-          </p>
-        </div>
-
-        {/* Copy button */}
-        <motion.button
-          whileTap={{ scale: 0.92 }}
-          onClick={handleCopy}
-          className="shrink-0 flex items-center gap-2 btn-outline hover:bg-[var(--blush-pale)] transition-colors duration-300"
-          style={{ padding: "10px 18px", fontSize: "0.75rem", fontWeight: 500 }}
-          aria-label={`Salin nomor rekening ${bank}`}
+      {/* Bank info */}
+      <div className="flex flex-col items-center">
+        <p
+          className="label"
+          style={{ color: "var(--gold)", letterSpacing: "0.18em", marginBottom: 6 }}
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {copied ? (
-              <motion.span
-                key="check"
-                className="flex items-center gap-2"
-                style={{ color: "var(--blush)" }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.2 }}
-              >
-                <CheckIcon />
-                Tersalin!
-              </motion.span>
-            ) : (
-              <motion.span
-                key="copy"
-                className="flex items-center gap-2"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.2 }}
-              >
-                <CopyIcon />
-                Salin
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </motion.button>
+          {bank}
+        </p>
+        <p
+          className="text-2xl sm:text-3xl mt-1"
+          style={{
+            fontFamily: "var(--font-serif)",
+            color: "var(--ink)",
+            letterSpacing: "0.12em",
+            fontWeight: 500,
+            textShadow: "0 1px 2px rgba(0,0,0,0.05)",
+            wordBreak: "break-all"
+          }}
+        >
+          {number}
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.85rem",
+            fontWeight: 300,
+            color: "var(--ink-muted)",
+            marginTop: 6,
+          }}
+        >
+          a/n {holder}
+        </p>
       </div>
+
+      {/* Copy button */}
+      <motion.button
+        whileTap={{ scale: 0.92 }}
+        onClick={handleCopy}
+        className="flex items-center gap-2 btn-outline hover:bg-[var(--blush-pale)] transition-colors duration-300"
+        style={{ padding: "8px 24px", fontSize: "0.75rem", fontWeight: 500 }}
+        aria-label={`Salin nomor rekening ${bank}`}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          {copied ? (
+            <motion.span
+              key="check"
+              className="flex items-center gap-2"
+              style={{ color: "var(--blush)" }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.2 }}
+            >
+              <CheckIcon />
+              Tersalin!
+            </motion.span>
+          ) : (
+            <motion.span
+              key="copy"
+              className="flex items-center gap-2"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.2 }}
+            >
+              <CopyIcon />
+              Salin Rekening
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </motion.button>
 
       <div className="hr-thin w-full mt-6 opacity-40" />
     </motion.div>
@@ -170,11 +169,11 @@ export default function GiftSection() {
       </motion.div>
 
       {/* Bank cards container */}
-      <div className="glass-card relative z-10 flex flex-col gap-6 w-full max-w-[92vw] sm:max-w-lg p-6 pt-14 sm:p-8 sm:pt-16 mt-8">
+      <div className="glass-card relative z-10 flex flex-col items-center gap-8 w-full max-w-[92vw] sm:max-w-lg p-8 sm:p-10 mt-8">
         
-        {/* Gift icon positioned exactly at top edge */}
+        {/* Gift icon - elegantly inside the card */}
         <motion.div
-          className="absolute -top-8 left-1/2 -translate-x-1/2 z-20"
+          className="relative z-20 flex flex-col items-center mb-2"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: 0.15, duration: 0.6 }}

@@ -57,7 +57,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, del
   return (
     <motion.div
       ref={ref}
-      className="glass-card relative w-full max-w-[92vw] sm:max-w-md sm:flex-1 p-6 pt-12 sm:p-8 sm:pt-14 flex flex-col gap-6 text-center items-center justify-between z-10 mt-6 lg:mt-0"
+      className="glass-card relative w-full max-w-[92vw] sm:max-w-md sm:flex-1 p-8 flex flex-col gap-6 text-center items-center justify-between z-10 mt-6 lg:mt-0"
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       whileHover={{ y: -8, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
@@ -69,9 +69,9 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, del
     >
       {/* Reduced clutter: removed corner borders */}
 
-      {/* Icon badge */}
+      {/* Icon badge - inside card */}
       <motion.div
-        className="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full flex items-center justify-center text-2xl z-20"
+        className="w-14 h-14 rounded-full flex items-center justify-center text-2xl z-20 mb-[-10px]"
         style={{
           background: "linear-gradient(135deg, var(--blush-pale), var(--gold-pale))",
           border: "1px solid rgba(184,151,106,0.2)",
