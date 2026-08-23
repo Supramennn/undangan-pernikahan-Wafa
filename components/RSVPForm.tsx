@@ -67,24 +67,17 @@ export default function RSVPForm() {
 
       {/* Card */}
       <motion.div
-        className="glass-card relative z-10 w-full max-w-[92vw] sm:max-w-lg p-6 sm:p-8"
+        className="glass-card relative z-10 w-full max-w-[92vw] sm:max-w-lg p-6 sm:p-10"
         initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.2, duration: 0.8 }}
       >
-        {/* Decorative Ornament */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center w-full pointer-events-none">
-          <svg width="60" height="20" viewBox="0 0 60 20" fill="none" aria-hidden="true" style={{ color: "var(--gold)" }}>
-            <path d="M30 10c-5-5-10-8-20-8v2c8 0 12 3 18 8-6 5-10 8-18 8v2c10 0 15-3 20-8 5 5 10 8 20 8v-2c-8 0-12-3-18-8 6-5 10-8 18-8V2c-10 0-15 3-20 8z" fill="currentColor" opacity="0.5"/>
-          </svg>
-        </div>
-
         <AnimatePresence mode="wait">
           {status === "success" ? (
             /* ── SUCCESS ── */
             <motion.div
               key="success"
-              className="text-center py-6 flex flex-col items-center gap-4 relative"
+              className="text-center py-8 flex flex-col items-center gap-4 relative"
               initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
@@ -127,65 +120,66 @@ export default function RSVPForm() {
                   <circle cx="32" cy="26" r="11" stroke="var(--gold)" strokeWidth="1.2" opacity="0.6" />
                 </svg>
               </motion.div>
-              <p className="display text-2xl sm:text-3xl" style={{ color: "var(--ink)" }}>Terima kasih!</p>
+              <p className="display text-2xl sm:text-3xl mt-4" style={{ color: "var(--ink)" }}>Terima kasih!</p>
               <p className="text-sm leading-relaxed" style={{ fontFamily: "var(--font-sans)", color: "var(--ink-muted)", fontWeight: 300, maxWidth: 260 }}>
                 Konfirmasi kehadiran Anda sudah kami terima dengan penuh sukacita.
               </p>
-              <div className="hr-thin hr-thin--lg mt-2" />
             </motion.div>
           ) : (
             /* ── FORM ── */
             <motion.form
               key="form"
               onSubmit={handleSubmit}
-              className="flex flex-col gap-5"
+              className="flex flex-col gap-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
               {/* Name */}
-              <div>
-                <label className="field-label" htmlFor="rsvp-name">Nama Lengkap</label>
+              <div className="flex flex-col gap-2">
+                <label className="font-sans text-xs font-bold tracking-widest text-[var(--ink)] uppercase" htmlFor="rsvp-name">
+                  Nama Lengkap
+                </label>
                 <input
                   id="rsvp-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Tulis nama Anda"
-                  className="field-input transition-all duration-300 focus:ring-2 focus:ring-[var(--blush-pale)] focus:border-[var(--blush)] outline-none"
+                  placeholder="Tulis nama Anda..."
+                  className="w-full px-4 py-3 rounded-xl border border-[rgba(0,0,0,0.08)] bg-white font-sans text-[var(--ink)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:border-transparent transition-all"
                   autoComplete="name"
                 />
               </div>
 
               {/* Attendance */}
-              <div>
-                <label className="field-label">Kehadiran</label>
-                <div className="flex gap-1.5 p-1 rounded-lg" style={{ background: "rgba(0,0,0,0.04)" }}>
-                  {[
-                    { value: "hadir",       label: "✦ Hadir" },
-                    { value: "tidak_hadir", label: "Tidak Hadir" },
-                  ].map((opt) => (
-                    <div key={opt.value} className="relative flex-1">
-                      {attend === opt.value && (
-                        <motion.div
-                          layoutId="attend-bg"
-                          className="absolute inset-0 rounded-md shadow-sm"
-                          style={{ background: "white" }}
-                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                        />
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => setAttend(opt.value as "hadir" | "tidak_hadir")}
-                        className={`relative z-10 w-full py-2.5 text-sm font-medium transition-colors duration-300 ${
-                          attend === opt.value ? "text-[var(--ink)]" : "text-[var(--ink-muted)] hover:text-[var(--ink-soft)]"
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    </div>
-                  ))}
+              <div className="flex flex-col gap-2">
+                <label className="font-sans text-xs font-bold tracking-widest text-[var(--ink)] uppercase">
+                  Kehadiran
+                </label>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setAttend("hadir")}
+                    className={`flex-1 py-3 rounded-xl font-sans text-sm font-medium transition-all ${
+                      attend === "hadir" 
+                        ? "bg-[var(--gold)] text-white shadow-md" 
+                        : "bg-[#FAF5EB] text-[var(--ink-muted)] hover:bg-[#F0E6D3]"
+                    }`}
+                  >
+                    Hadir
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAttend("tidak_hadir")}
+                    className={`flex-1 py-3 rounded-xl font-sans text-sm font-medium transition-all ${
+                      attend === "tidak_hadir" 
+                        ? "bg-[#6B2D31] text-white shadow-md" 
+                        : "bg-[#FAF5EB] text-[var(--ink-muted)] hover:bg-[#F0E6D3]"
+                    }`}
+                  >
+                    Tidak Hadir
+                  </button>
                 </div>
               </div>
 
@@ -197,37 +191,40 @@ export default function RSVPForm() {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.25 }}
+                    className="flex flex-col gap-2"
                   >
-                    <label className="field-label" htmlFor="rsvp-count">Jumlah Tamu</label>
-                    <input
+                    <label className="font-sans text-xs font-bold tracking-widest text-[var(--ink)] uppercase" htmlFor="rsvp-count">
+                      Jumlah Tamu
+                    </label>
+                    <select
                       id="rsvp-count"
-                      type="number"
-                      min={1}
-                      max={5}
                       value={count}
                       onChange={(e) => setCount(Number(e.target.value))}
-                      className="field-input transition-all duration-300 focus:ring-2 focus:ring-[var(--blush-pale)] focus:border-[var(--blush)] outline-none"
-                      inputMode="numeric"
-                    />
+                      className="w-full px-4 py-3 rounded-xl border border-[rgba(0,0,0,0.08)] bg-white font-sans text-[var(--ink)] focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:border-transparent transition-all appearance-none cursor-pointer"
+                    >
+                      <option value={1}>1 Orang</option>
+                      <option value={2}>2 Orang</option>
+                      <option value={3}>3 Orang</option>
+                      <option value={4}>4 Orang</option>
+                      <option value={5}>5 Orang</option>
+                    </select>
                   </motion.div>
                 )}
               </AnimatePresence>
 
               {/* Message */}
-              <div>
-                <label className="field-label" htmlFor="rsvp-message">
-                  Ucapan &amp; Doa
-                  <span style={{ fontWeight: 300, textTransform: "none", letterSpacing: "normal", opacity: 0.55, marginLeft: 4 }}>
-                    (opsional)
-                  </span>
+              <div className="flex flex-col gap-2">
+                <label className="font-sans text-xs font-bold tracking-widest text-[var(--ink)] uppercase flex items-center justify-between" htmlFor="rsvp-message">
+                  <span>Ucapan & Doa</span>
+                  <span className="text-gray-400 font-normal lowercase tracking-normal text-[10px]">opsional</span>
                 </label>
                 <textarea
                   id="rsvp-message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Tulis ucapan untuk kedua mempelai…"
-                  rows={2}
-                  className="field-input resize-none transition-all duration-300 focus:ring-2 focus:ring-[var(--blush-pale)] focus:border-[var(--blush)] outline-none"
+                  placeholder="Tulis ucapan selamat..."
+                  rows={3}
+                  className="w-full px-4 py-3 rounded-xl border border-[rgba(0,0,0,0.08)] bg-white font-sans text-[var(--ink)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:border-transparent transition-all resize-none"
                 />
               </div>
 
@@ -235,15 +232,14 @@ export default function RSVPForm() {
               <AnimatePresence>
                 {status === "error" && (
                   <motion.p
-                    className="text-xs px-3 py-2 rounded-lg"
-                    style={{ background: "rgba(200,60,60,0.07)", border: "1px solid rgba(200,60,60,0.15)", color: "rgba(180,40,40,0.8)", fontFamily: "var(--font-sans)" }}
+                    className="text-xs px-4 py-3 rounded-xl bg-red-50 text-red-600 font-sans border border-red-100 text-center"
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                   >
                     {!name.trim() || !attend
-                      ? "Mohon isi nama dan konfirmasi kehadiran."
-                      : "Gagal mengirim. Silakan coba lagi."}
+                      ? "Mohon isi nama dan konfirmasi kehadiran Anda."
+                      : "Gagal mengirim pesan. Silakan coba lagi nanti."}
                   </motion.p>
                 )}
               </AnimatePresence>
@@ -252,27 +248,26 @@ export default function RSVPForm() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="btn-primary mt-1 relative overflow-hidden group"
+                className="btn-primary mt-2 relative overflow-hidden group w-full"
               >
-                {/* Shimmer effect */}
                 <div className="absolute inset-0 -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-[1.5s] ease-in-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
                 
                 {status === "loading" ? (
-                  <>
+                  <span className="relative z-10 flex items-center justify-center gap-2">
                     <motion.span
-                      className="block w-4 h-4 rounded-full border border-white/30 border-t-white relative z-10"
+                      className="block w-4 h-4 rounded-full border-2 border-white/30 border-t-white"
                       animate={{ rotate: 360 }}
                       transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
                     />
-                    <span className="relative z-10">Mengirim…</span>
-                  </>
+                    Mengirim...
+                  </span>
                 ) : (
-                  <>
-                    <svg className="relative z-10" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <span className="relative z-10 flex items-center justify-center gap-2 font-bold tracking-widest">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
                     </svg>
-                    <span className="relative z-10">Kirim Konfirmasi</span>
-                  </>
+                    KIRIM KONFIRMASI
+                  </span>
                 )}
               </button>
             </motion.form>

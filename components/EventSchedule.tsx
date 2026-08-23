@@ -48,7 +48,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, map
   return (
     <motion.div
       ref={ref}
-      className="glass-card relative w-full max-w-[92vw] sm:max-w-md sm:flex-1 p-6 sm:p-8 flex flex-col gap-5 text-center items-center z-10"
+      className="glass-card relative w-full lg:flex-1 p-6 sm:p-8 flex flex-col gap-5 text-center items-center z-10"
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay, duration: 0.6 }}
@@ -65,7 +65,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, map
 
       {/* Time */}
       <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.9rem", color: "var(--ink-muted)", fontWeight: 400 }}>
-        {formatTime(dateTime)} - {formatTime(endTime)} WIB
+        {formatTime(dateTime)} - {formatTime(endTime)}
       </p>
 
       {/* Venue */}
