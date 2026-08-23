@@ -23,6 +23,11 @@
   --rose:         #5E272A;
   --champagne:    #E6DFD6;
 
+  /* Card surface — sengaja senada sama --ivory, bukan putih dingin,
+     biar card terasa "menyatu" dengan halaman dan cuma dibedain lewat
+     border tipis + shadow (bukan lewat kontras warna). */
+  --card-bg:      #F5EFE7;
+
   /* Fonts */
   --font-serif:   'Playfair Display', 'Georgia', serif;
   --font-italic:  'Cormorant Garamond', 'Georgia', serif;
@@ -250,9 +255,9 @@ body {
 ───────────────────────────────────────────── */
 .glass-card {
   position: relative;
-  background: #FCFBF9;
+  background: var(--card-bg);
   border-radius: 16px;
-  border: 1px solid rgba(156, 119, 84, 0.15);
+  border: 1px solid rgba(156, 119, 84, 0.22);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -260,7 +265,36 @@ body {
 .glass-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-  border-color: rgba(156, 119, 84, 0.3);
+  border-color: rgba(156, 119, 84, 0.38);
+}
+
+/* Media (mis. thumbnail Google Maps) yang ditempel di dalam card —
+   pastikan sudutnya selalu ikut radius card induknya, gak "meleot"
+   di pojok bawah. Tempelkan class ini ke wrapper/iframe/img peta. */
+.card-media {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(156, 119, 84, 0.18);
+}
+
+.card-media iframe,
+.card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Jaring pengaman: KALAUPUN class .card-media di atas belum ditempel
+   di komponennya, aturan ini otomatis membulatkan sudut iframe/gambar
+   apa pun yang ada di dalam .glass-card — jadi gak perlu edit JSX sama
+   sekali untuk benerin sudut peta yang "meleot" itu. */
+.glass-card iframe,
+.glass-card img {
+  border-radius: 12px;
+  border: none;
 }
 
 /* ─────────────────────────────────────────────

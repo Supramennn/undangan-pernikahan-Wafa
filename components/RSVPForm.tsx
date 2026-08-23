@@ -130,77 +130,77 @@ export default function RSVPForm() {
             <motion.form
               key="form"
               onSubmit={handleSubmit}
-              className="flex flex-col gap-6"
+              className="flex flex-col gap-5"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
               {/* Name */}
-              <div className="flex flex-col gap-2">
-                <label className="font-sans text-xs font-bold tracking-widest text-[var(--ink)] uppercase" htmlFor="rsvp-name">
+              <fieldset className="border border-[rgba(0,0,0,0.12)] rounded-xl px-4 pb-3 pt-1 focus-within:border-[var(--gold)] focus-within:ring-1 focus-within:ring-[var(--gold)] transition-all bg-white">
+                <legend className="font-sans text-[10px] font-bold tracking-widest text-[var(--ink)] uppercase px-2">
                   Nama Lengkap
-                </label>
+                </legend>
                 <input
                   id="rsvp-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Tulis nama Anda..."
-                  className="w-full px-4 py-3 rounded-xl border border-[rgba(0,0,0,0.08)] bg-white font-sans text-[var(--ink)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:border-transparent transition-all"
+                  placeholder="Tulis nama Anda"
+                  className="w-full bg-transparent font-sans text-[var(--ink)] placeholder:text-gray-300 focus:outline-none text-sm px-2 py-1"
                   autoComplete="name"
                 />
-              </div>
+              </fieldset>
 
               {/* Attendance */}
-              <div className="flex flex-col gap-2">
-                <label className="font-sans text-xs font-bold tracking-widest text-[var(--ink)] uppercase">
+              <fieldset className="border border-[rgba(0,0,0,0.12)] rounded-xl px-4 pb-4 pt-1 bg-white">
+                <legend className="font-sans text-[10px] font-bold tracking-widest text-[var(--ink)] uppercase px-2">
                   Kehadiran
-                </label>
-                <div className="flex gap-2">
+                </legend>
+                <div className="flex bg-[#F5F4F0] p-1 rounded-lg mt-1">
                   <button
                     type="button"
                     onClick={() => setAttend("hadir")}
-                    className={`flex-1 py-3 rounded-xl font-sans text-sm font-medium transition-all ${
+                    className={`flex-1 py-2.5 rounded-md font-sans text-sm font-semibold transition-all ${
                       attend === "hadir" 
-                        ? "bg-[var(--gold)] text-white shadow-md" 
-                        : "bg-[#FAF5EB] text-[var(--ink-muted)] hover:bg-[#F0E6D3]"
+                        ? "bg-white text-[var(--ink)] shadow-sm" 
+                        : "text-[var(--ink-muted)] hover:text-[var(--ink)]"
                     }`}
                   >
-                    Hadir
+                    ✦ Hadir
                   </button>
                   <button
                     type="button"
                     onClick={() => setAttend("tidak_hadir")}
-                    className={`flex-1 py-3 rounded-xl font-sans text-sm font-medium transition-all ${
+                    className={`flex-1 py-2.5 rounded-md font-sans text-sm font-semibold transition-all ${
                       attend === "tidak_hadir" 
-                        ? "bg-[#6B2D31] text-white shadow-md" 
-                        : "bg-[#FAF5EB] text-[var(--ink-muted)] hover:bg-[#F0E6D3]"
+                        ? "bg-white text-[var(--ink)] shadow-sm" 
+                        : "text-[var(--ink-muted)] hover:text-[var(--ink)]"
                     }`}
                   >
                     Tidak Hadir
                   </button>
                 </div>
-              </div>
+              </fieldset>
 
               {/* Guest count */}
               <AnimatePresence>
                 {attend === "hadir" && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
+                  <motion.fieldset
+                    initial={{ opacity: 0, height: 0, marginTop: -20 }}
+                    animate={{ opacity: 1, height: "auto", marginTop: 0 }}
+                    exit={{ opacity: 0, height: 0, marginTop: -20 }}
                     transition={{ duration: 0.25 }}
-                    className="flex flex-col gap-2"
+                    className="border border-[rgba(0,0,0,0.12)] rounded-xl px-4 pb-3 pt-1 focus-within:border-[var(--gold)] focus-within:ring-1 focus-within:ring-[var(--gold)] transition-all bg-white overflow-hidden"
                   >
-                    <label className="font-sans text-xs font-bold tracking-widest text-[var(--ink)] uppercase" htmlFor="rsvp-count">
+                    <legend className="font-sans text-[10px] font-bold tracking-widest text-[var(--ink)] uppercase px-2">
                       Jumlah Tamu
-                    </label>
+                    </legend>
                     <select
                       id="rsvp-count"
                       value={count}
                       onChange={(e) => setCount(Number(e.target.value))}
-                      className="w-full px-4 py-3 rounded-xl border border-[rgba(0,0,0,0.08)] bg-white font-sans text-[var(--ink)] focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:border-transparent transition-all appearance-none cursor-pointer"
+                      className="w-full bg-transparent font-sans text-[var(--ink)] focus:outline-none text-sm px-2 py-1 appearance-none cursor-pointer"
                     >
                       <option value={1}>1 Orang</option>
                       <option value={2}>2 Orang</option>
@@ -208,25 +208,24 @@ export default function RSVPForm() {
                       <option value={4}>4 Orang</option>
                       <option value={5}>5 Orang</option>
                     </select>
-                  </motion.div>
+                  </motion.fieldset>
                 )}
               </AnimatePresence>
 
               {/* Message */}
-              <div className="flex flex-col gap-2">
-                <label className="font-sans text-xs font-bold tracking-widest text-[var(--ink)] uppercase flex items-center justify-between" htmlFor="rsvp-message">
-                  <span>Ucapan & Doa</span>
-                  <span className="text-gray-400 font-normal lowercase tracking-normal text-[10px]">opsional</span>
-                </label>
+              <fieldset className="border border-[rgba(0,0,0,0.12)] rounded-xl px-4 pb-3 pt-1 focus-within:border-[var(--gold)] focus-within:ring-1 focus-within:ring-[var(--gold)] transition-all bg-white">
+                <legend className="font-sans text-[10px] font-bold tracking-widest text-[var(--ink)] uppercase px-2">
+                  Ucapan & Doa <span className="font-normal lowercase tracking-normal text-gray-400 ml-1">(opsional)</span>
+                </legend>
                 <textarea
                   id="rsvp-message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Tulis ucapan selamat..."
+                  placeholder="Tulis ucapan untuk kedua mempelai..."
                   rows={3}
-                  className="w-full px-4 py-3 rounded-xl border border-[rgba(0,0,0,0.08)] bg-white font-sans text-[var(--ink)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] focus:border-transparent transition-all resize-none"
+                  className="w-full bg-transparent font-sans text-[var(--ink)] placeholder:text-gray-300 focus:outline-none text-sm px-2 py-1 resize-none"
                 />
-              </div>
+              </fieldset>
 
               {/* Error */}
               <AnimatePresence>
@@ -248,7 +247,7 @@ export default function RSVPForm() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="btn-primary mt-2 relative overflow-hidden group w-full"
+                className="btn-primary mt-2 relative overflow-hidden group w-full py-4 rounded-3xl"
               >
                 <div className="absolute inset-0 -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-[1.5s] ease-in-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
                 
