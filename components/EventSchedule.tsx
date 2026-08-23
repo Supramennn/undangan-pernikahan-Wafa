@@ -4,149 +4,105 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { WEDDING, formatDate, formatTime, googleCalendarUrl } from "@/lib/config";
 
-function CalendarIcon() {
+// SVG Icons matching the reference design
+function MosqueIcon() {
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="3" y="4" width="18" height="18" rx="2" />
-      <path d="M16 2v4M8 2v4M3 10h18" />
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2L8 6h8l-4-4z" />
+      <rect x="4" y="10" width="16" height="12" />
+      <path d="M4 10V6h16v4" />
+      <path d="M8 10v12M12 10v12M16 10v12" />
     </svg>
   );
 }
 
-function MapPinIcon() {
+function CupIcon() {
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-      <circle cx="12" cy="9" r="2.5" />
-    </svg>
-  );
-}
-
-function ClockIcon() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 6v6l4 2" />
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 3H7c-1.1 0-2 .9-2 2v2c0 2.8 2.2 5 5 5h4c2.8 0 5-2.2 5-5V5c0-1.1-.9-2-2-2z" />
+      <path d="M12 12v5" />
+      <path d="M9 17h6" />
+      <path d="M8 21h8" />
+      <path d="M8 19v2M16 19v2" />
+      <path d="M5 5h14" />
     </svg>
   );
 }
 
 interface EventCardProps {
   type: "Akad Nikah" | "Resepsi";
-  icon: string;
+  icon: React.ReactNode;
   dateTime: Date;
   endTime: Date;
   venue: string;
   address: string;
   mapsUrl: string;
+  mapEmbedUrl?: string;
   delay: number;
 }
 
-function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, delay }: EventCardProps) {
+function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, mapEmbedUrl, delay }: EventCardProps) {
   const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-
-  const gcalUrl = googleCalendarUrl({
-    title:    `${type} — ${WEDDING.groom.nickname} & ${WEDDING.bride.nickname}`,
-    start:    dateTime,
-    end:      endTime,
-    location: `${venue}, ${address}`,
-    details:  `Kami dengan penuh sukacita mengundang Anda ke ${type} Pernikahan ${WEDDING.groom.nickname} & ${WEDDING.bride.nickname}`,
-  });
 
   return (
     <motion.div
       ref={ref}
-      className="glass-card relative w-full max-w-[92vw] sm:max-w-md sm:flex-1 p-8 flex flex-col gap-6 text-center items-center justify-between z-10 mt-6 lg:mt-0"
-      initial={{ opacity: 0, y: 28 }}
+      className="glass-card relative w-full max-w-[92vw] sm:max-w-md sm:flex-1 p-6 sm:p-8 flex flex-col gap-5 text-center items-center z-10"
+      initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      whileHover={{ y: -8, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
-      transition={{ 
-        opacity: { delay, duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-        y: { type: "spring", stiffness: 300, damping: 20 },
-        boxShadow: { duration: 0.2 }
-      }}
+      transition={{ delay, duration: 0.6 }}
     >
-      {/* Reduced clutter: removed corner borders */}
-
-      {/* Icon badge - inside card */}
-      <motion.div
-        className="w-14 h-14 rounded-full flex items-center justify-center text-2xl z-20 mb-[-10px]"
-        style={{
-          background: "linear-gradient(135deg, var(--blush-pale), var(--gold-pale))",
-          border: "1px solid rgba(184,151,106,0.2)",
-        }}
-        animate={{ scale: [1, 1.05, 1], boxShadow: ["0 0 0px rgba(184,151,106,0)", "0 0 15px rgba(184,151,106,0.3)", "0 0 0px rgba(184,151,106,0)"] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      >
-        <span className="relative z-10">{icon}</span>
-      </motion.div>
-
-      <div className="flex flex-col gap-5 items-center w-full flex-1">
+      {/* Icon */}
+      <div className="mb-2">
+        {icon}
+      </div>
 
       {/* Type */}
-      <div>
-        <p className="text-xs sm:text-sm font-medium uppercase tracking-[0.18em]" style={{ color: "var(--gold)" }}>
-          {type}
+      <h3 className="display text-3xl sm:text-4xl" style={{ color: "var(--ink)", marginBottom: "4px" }}>
+        {type}
+      </h3>
+
+      {/* Time */}
+      <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.9rem", color: "var(--ink-muted)", fontWeight: 400 }}>
+        {formatTime(dateTime)} - {formatTime(endTime)} WIB
+      </p>
+
+      {/* Venue */}
+      <div className="mt-2 mb-2 flex flex-col gap-1">
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "1rem", color: "var(--ink)", fontWeight: 500 }}>
+          {venue}
         </p>
-        <p
-          className="display mt-2 text-xl sm:text-2xl"
-          style={{ color: "var(--ink)" }}
-        >
-          {formatDate(dateTime, { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", color: "var(--ink-muted)", fontWeight: 300, lineHeight: 1.5 }}>
+          {address}
         </p>
       </div>
 
-      <div className="hr-thin w-full" style={{ opacity: 0.5 }} />
+      {/* Button */}
+      <a
+        href={mapsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-primary w-full mt-2"
+      >
+        BUKA GOOGLE MAPS
+      </a>
 
-      {/* Details */}
-      <ul className="flex flex-col gap-3 text-left w-full">
-        <li className="flex items-start gap-2.5">
-          <span className="mt-0.5 shrink-0" style={{ color: "var(--blush)" }}><ClockIcon /></span>
-          <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", fontWeight: 300, color: "var(--ink-soft)" }}>
-            {formatTime(dateTime)} – {formatTime(endTime)}
-          </span>
-        </li>
-        <li className="flex items-start gap-2.5">
-          <span className="mt-0.5 shrink-0" style={{ color: "var(--blush)" }}><MapPinIcon /></span>
-          <div>
-            <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", fontWeight: 400, color: "var(--ink-soft)" }}>
-              {venue}
-            </p>
-            <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.8rem", fontWeight: 300, color: "var(--ink-muted)" }}>
-              {address}
-            </p>
-          </div>
-        </li>
-      </ul>
-      </div>
-
-      <div className="hr-thin w-full" style={{ opacity: 0.5 }} />
-
-      {/* Buttons */}
-      <div className="flex gap-2.5 w-full shrink-0">
-        <a
-          href={mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-outline flex-1 text-center group relative overflow-hidden"
-          style={{ padding: "10px 12px", fontSize: "0.7rem", borderColor: "var(--gold-pale)" }}
-        >
-          <motion.div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(235,214,213,0.3), rgba(246,238,223,0.3))" }} />
-          <span className="relative z-10 flex items-center justify-center gap-1.5"><MapPinIcon /> Peta</span>
-        </a>
-        <a
-          href={gcalUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-outline flex-1 text-center group relative overflow-hidden"
-          style={{ padding: "10px 12px", fontSize: "0.7rem", borderColor: "var(--gold-pale)" }}
-        >
-          <motion.div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(235,214,213,0.3), rgba(246,238,223,0.3))" }} />
-          <span className="relative z-10 flex items-center justify-center gap-1.5"><CalendarIcon /> Kalender</span>
-        </a>
-      </div>
+      {/* Map Embed */}
+      {mapEmbedUrl && (
+        <div className="w-full h-[180px] rounded-xl overflow-hidden mt-4 border border-[rgba(0,0,0,0.05)] shadow-inner relative">
+          <iframe 
+            src={mapEmbedUrl} 
+            width="100%" 
+            height="100%" 
+            style={{ border: 0 }} 
+            allowFullScreen 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+            className="absolute inset-0"
+          ></iframe>
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -172,63 +128,30 @@ export default function EventSchedule() {
         <span className="label">Rangkaian Acara</span>
         <div className="hr-thin" style={{ marginBlock: "16px" }} />
         <h2 className="display" style={{ color: "var(--ink)" }}>Jadwal Pernikahan</h2>
-        <p
-          className="mt-3"
-          style={{
-            fontFamily: "var(--font-sans)",
-            color: "var(--ink-muted)",
-            fontWeight: 300,
-            fontSize: "clamp(0.875rem, 2.5vw, 1rem)",
-            maxWidth: 380,
-          }}
-        >
-          Kami mengundang Anda untuk hadir dan menjadi bagian dari momen suci ini
-        </p>
       </motion.div>
 
-      {/* Event cards with timeline connector */}
-      <div className="relative z-0 flex flex-col lg:flex-row gap-8 lg:gap-14 items-center lg:items-stretch w-full max-w-5xl justify-center mt-6">
-        {/* Connector Line */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-0.5 h-full lg:w-full lg:h-0.5 pointer-events-none z-0" style={{ background: "linear-gradient(to bottom, transparent, var(--gold-pale), transparent)" }}>
-           {/* Desktop horizontal override */}
-           <style jsx>{`
-             @media (min-width: 1024px) {
-               div { background: linear-gradient(to right, transparent, var(--gold-pale), transparent) !important; }
-             }
-           `}</style>
-           {/* Animated dot moving along timeline */}
-           <motion.div 
-             className="absolute w-2 h-2 rounded-full hidden lg:block"
-             style={{ background: "var(--blush)", top: "-3px", left: "0%" }}
-             animate={{ left: ["0%", "100%", "0%"] }}
-             transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
-           />
-           <motion.div 
-             className="absolute w-2 h-2 rounded-full lg:hidden block"
-             style={{ background: "var(--blush)", left: "-3px", top: "0%" }}
-             animate={{ top: ["0%", "100%", "0%"] }}
-             transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
-           />
-        </div>
-
+      {/* Event cards */}
+      <div className="relative z-10 flex flex-col lg:flex-row gap-6 lg:gap-8 items-center lg:items-stretch w-full max-w-5xl justify-center mt-2">
         <EventCard
           type="Akad Nikah"
-          icon="🕌"
+          icon={<MosqueIcon />}
           dateTime={WEDDING.akad.dateTime}
           endTime={WEDDING.akad.endTime}
           venue={WEDDING.akad.venue}
           address={WEDDING.akad.address}
           mapsUrl={WEDDING.akad.mapsUrl}
+          mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.273616641577!2d106.79796031536838!3d-6.227608295491823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f14eb25b9679%3A0x6b5a3713d288d66!2sMasjid%20Agung%20Al-Azhar!5e0!3m2!1sid!2sid!4v1689260195563!5m2!1sid!2sid"
           delay={0.1}
         />
         <EventCard
           type="Resepsi"
-          icon="🌸"
+          icon={<CupIcon />}
           dateTime={WEDDING.resepsi.dateTime}
           endTime={WEDDING.resepsi.endTime}
           venue={WEDDING.resepsi.venue}
           address={WEDDING.resepsi.address}
           mapsUrl={WEDDING.resepsi.mapsUrl}
+          mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3059424840427!2d106.8071887153681!3d-6.223337995495574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f15191b262e3%3A0xd3b8bbce0c910b23!2sThe%20Ritz-Carlton%20Jakarta%2C%20Pacific%20Place!5e0!3m2!1sid!2sid!4v1689260237731!5m2!1sid!2sid"
           delay={0.25}
         />
       </div>

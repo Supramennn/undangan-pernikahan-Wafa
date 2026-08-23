@@ -316,14 +316,10 @@ export default function HeroSection() {
 
               <motion.button
                 onClick={handleOpen}
-                className="group flex items-center gap-3 px-8 py-4 rounded-full text-xs sm:text-sm font-medium uppercase tracking-[0.2em]"
+                className="btn-primary group flex items-center justify-center gap-3 px-8 py-4 rounded-full text-xs sm:text-sm font-medium uppercase tracking-[0.2em]"
                 style={{
-                  fontFamily: "var(--font-sans)",
-                  color: "var(--ink)",
-                  background: "rgba(255,255,255,0.95)",
-                  backdropFilter: "blur(8px)",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.9) inset",
-                  border: "1px solid rgba(255,255,255,0.8)",
+                  minHeight: "auto",
+                  width: "auto"
                 }}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}

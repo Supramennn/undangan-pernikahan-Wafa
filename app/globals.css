@@ -246,50 +246,21 @@ body {
 }
 
 /* ─────────────────────────────────────────────
-   GLASS CARD (ELEGANT UPGRADE)
+   SOLID CARD (CLEAN ELEGANT STYLE)
 ───────────────────────────────────────────── */
 .glass-card {
   position: relative;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.75), rgba(250, 248, 245, 0.35));
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow:
-    0 12px 40px rgba(44, 36, 32, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
-  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  background: #FCFBF9;
+  border-radius: 16px;
+  border: 1px solid rgba(156, 119, 84, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .glass-card:hover {
-  transform: translateY(-4px) scale(1.005);
-  box-shadow:
-    0 16px 56px rgba(44, 36, 32, 0.08),
-    0 4px 16px rgba(184, 151, 106, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(250, 248, 245, 0.45));
-  border-color: rgba(255, 255, 255, 1);
-}
-
-/* Elegant Inner Glow */
-.glass-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 0 0 1px rgba(184, 151, 106, 0.08); /* Subtle gold inner line */
-  pointer-events: none;
-}
-
-/* Subtle corner reflections */
-.glass-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.7) 0%, transparent 50%),
-              radial-gradient(circle at 100% 100%, rgba(255,255,255,0.3) 0%, transparent 50%);
-  pointer-events: none;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  border-color: rgba(156, 119, 84, 0.3);
 }
 
 /* ─────────────────────────────────────────────
@@ -395,16 +366,16 @@ body {
 }
 
 .attend-btn:hover {
-  border-color: var(--blush-light);
+  border-color: var(--gold-light);
   color: var(--ink);
-  background: rgba(242, 221, 217, 0.15);
+  background: rgba(184, 151, 106, 0.05);
 }
 
 .attend-btn--active {
-  background: linear-gradient(135deg, var(--blush), var(--rose));
-  border-color: var(--blush);
+  background: var(--gold);
+  border-color: var(--gold);
   color: white;
-  box-shadow: 0 4px 16px rgba(201, 144, 143, 0.25);
+  box-shadow: 0 4px 16px rgba(156, 119, 84, 0.25);
 }
 
 /* ─────────────────────────────────────────────
@@ -418,7 +389,7 @@ body {
   width: 100%;
   padding: 15px 28px;
   border-radius: 100px;
-  background: linear-gradient(135deg, var(--ink), var(--ink-soft));
+  background: var(--gold);
   color: white;
   font-family: var(--font-sans);
   font-size: 0.8rem;
@@ -427,28 +398,18 @@ body {
   text-transform: uppercase;
   border: none;
   cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.3s ease;
   min-height: 52px;
   position: relative;
   overflow: hidden;
 }
 
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent, rgba(255,255,255,0.08), transparent);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
 .btn-primary:hover { 
-  background: linear-gradient(135deg, var(--ink-soft), var(--ink));
-  box-shadow: 0 8px 32px rgba(44, 36, 32, 0.25);
-  transform: translateY(-2px) scale(1.02);
+  background: var(--gold-light);
+  box-shadow: 0 8px 24px rgba(156, 119, 84, 0.3);
+  transform: translateY(-2px);
 }
-.btn-primary:hover::before { opacity: 1; }
-.btn-primary:active { transform: translateY(0) scale(0.98); }
+.btn-primary:active { transform: translateY(0); }
 .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 /* Outline variant */
