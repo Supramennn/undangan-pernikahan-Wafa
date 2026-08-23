@@ -255,17 +255,16 @@ body {
 ───────────────────────────────────────────── */
 .glass-card {
   position: relative;
-  background: var(--card-bg);
-  border-radius: 16px;
-  border: 1px solid rgba(156, 119, 84, 0.22);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .glass-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-  border-color: rgba(156, 119, 84, 0.38);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* Media (mis. thumbnail Google Maps) yang ditempel di dalam card —

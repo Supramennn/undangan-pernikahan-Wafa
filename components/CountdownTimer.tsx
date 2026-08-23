@@ -210,9 +210,6 @@ export default function CountdownTimer() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4, duration: 0.8 }}
-          style={{
-            border: "1px solid rgba(184,151,106,0.3)",
-          }}
         >
           {/* Reduced clutter: removed heavy corner borders */}
 

@@ -104,8 +104,6 @@ export default function Guestbook() {
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.2, duration: 0.8 }}
       >
-        {/* Subtle gradient border */}
-        <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{ padding: "1.5px", background: "linear-gradient(135deg, rgba(201,144,143,0.6), rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(184,151,106,0.6))", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude" }} />
         
         {loading ? (
           <div className="flex flex-col items-center gap-3 py-10">
