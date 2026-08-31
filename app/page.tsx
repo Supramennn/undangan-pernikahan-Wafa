@@ -142,7 +142,7 @@ export default async function Home({ searchParams }: PageProps) {
             opacity: 0.5,
           }}
         >
-          With Love
+          Copyright © 2026 Nexus Diji. All rights reserved.
         </p>
 
         {/* Bottom ornament */}
