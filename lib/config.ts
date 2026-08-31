@@ -55,11 +55,12 @@ export const WEDDING = {
     /** Waktu selesai (untuk Add to Calendar) */
     endTime:    new Date("2026-09-12T10:00:00+07:00"),
     /** Nama gedung / tempat */
-    venue:      "Masjid Al-Hikmah",
+    venue:      "Kediaman Mempelai Wanita",
     /** Alamat lengkap */
-    address:    "Jl. Masjid Raya No. 1, Jakarta Selatan",
+    address:    "Ujungrusi - Pedalangan RT 24 RW 03 ( Gang Mawar IV) Adiwerna-Tegal",
     /** Link Google Maps */
-    mapsUrl:    "https://maps.google.com/?q=-6.2,106.8",
+    mapsUrl:    "https://maps.app.goo.gl/9Qdx8CsrAtAr5vVy9",
+    mapsembedUrl: "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.566980013436!2d109.1323748!3d-6.942240399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fb92effdca803%3A0xaff5ca2542caea02!2sGg.%20Mawar%204%2C%20Kec.%20Adiwerna%2C%20Kabupaten%20Tegal%2C%20Jawa%20Tengah%2052194!5e0!3m2!1sid!2sid!4v1788154625468!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin\"></iframe>"
   },
 
   // ──────────────────────────────────────────────────
@@ -68,9 +69,10 @@ export const WEDDING = {
   resepsi: {
     dateTime:   new Date("2026-09-21T11:00:00+07:00"),
     endTime:    new Date("2026-09-21T15:00:00+07:00"),
-    venue:      "Gedung Serbaguna Harmoni",
-    address:    "Jl. Harmoni No. 123, Jakarta Pusat",
-    mapsUrl:    "https://maps.google.com/?q=-6.17,106.82",
+    venue:      "Kediaman Mempelai Wanita",
+    address:    "Ujungrusi - Pedalangan RT 24 RW 03 ( Gang Mawar IV) Adiwerna-Tegal",
+    mapsUrl:    "https://maps.app.goo.gl/9Qdx8CsrAtAr5vVy9",
+    mapsembedUrl: "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.566980013436!2d109.1323748!3d-6.942240399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fb92effdca803%3A0xaff5ca2542caea02!2sGg.%20Mawar%204%2C%20Kec.%20Adiwerna%2C%20Kabupaten%20Tegal%2C%20Jawa%20Tengah%2052194!5e0!3m2!1sid!2sid!4v1788154625468!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin\"></iframe>",
   },
 
   // ──────────────────────────────────────────────────
@@ -82,12 +84,12 @@ export const WEDDING = {
       bank:      "BCA",
       /** Nomor rekening — akan ada tombol Salin */
       number:    "1234567890",
-      holder:    "Prayoga Dwi Saputra",
+      holder:    "Prayoga Aenul Wafa",
     },
     {
       bank:      "Mandiri",
       number:    "0987654321",
-      holder:    "Saylunada Putri Rahayu",
+      holder:    "Saylunada",
     },
   ],
 
