@@ -53,7 +53,7 @@ export default async function Home({ searchParams }: PageProps) {
         <SectionDivider type="line" />
 
         {/* RSVP */}
-        <RSVPForm />
+        <RSVPForm guestName={guestName} />
 
         <SectionDivider type="line" />
 

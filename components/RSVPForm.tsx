@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
+import { formatGuestName } from "@/lib/utils";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -16,15 +17,37 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function RSVPForm() {
-  const [name, setName]       = useState("");
-  const [attend, setAttend]   = useState<"hadir" | "tidak_hadir" | "">("");
-  const [count, setCount]     = useState(1);
-  const [message, setMessage] = useState("");
-  const [status, setStatus]   = useState<Status>("idle");
+interface RSVPFormProps {
+  guestName?: string;
+}
+
+export default function RSVPForm({ guestName: propGuestName }: RSVPFormProps) {
+  const initialName = propGuestName && propGuestName !== "Tamu Undangan" ? propGuestName : "";
+  const [name, setName]               = useState(initialName);
+  const [isAutoFilled, setIsAutoFilled] = useState(Boolean(initialName));
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [attend, setAttend]           = useState<"hadir" | "tidak_hadir" | "">("");
+  const [count, setCount]             = useState(1);
+  const [message, setMessage]         = useState("");
+  const [status, setStatus]           = useState<Status>("idle");
 
   const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  // Client-side fallback check for ?to= query param
+  useEffect(() => {
+    if (!name) {
+      const params = new URLSearchParams(window.location.search);
+      const to = params.get("to");
+      if (to) {
+        const formatted = formatGuestName(to);
+        if (formatted && formatted !== "Tamu Undangan") {
+          setName(formatted);
+          setIsAutoFilled(true);
+        }
+      }
+    }
+  }, [name]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -129,15 +152,61 @@ export default function RSVPForm() {
             >
               {/* Nama Lengkap */}
               <div>
-                <FieldLabel>Nama Lengkap</FieldLabel>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Tulis nama Anda..."
-                  autoComplete="name"
-                  className="w-full px-4 py-3.5 rounded-xl font-sans text-sm bg-white/90 border border-[var(--gold)]/30 text-[var(--ink)] placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/40 focus:border-[var(--gold)] focus:bg-white transition-all min-h-[48px]"
-                />
+                {isAutoFilled && !isEditingName ? (
+                  <div className="flex flex-col">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <FieldLabel>Nama Lengkap</FieldLabel>
+                      <span className="text-[11px] text-[var(--gold)] font-medium flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        Terisi Otomatis
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between px-4 py-3.5 rounded-xl bg-white/95 border border-[var(--gold)]/35 shadow-2xs min-h-[48px]">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="w-6 h-6 rounded-full bg-[var(--gold-pale)]/70 border border-[var(--gold)]/30 flex items-center justify-center text-xs font-serif italic text-[var(--gold)] shrink-0">
+                          {name.charAt(0).toUpperCase()}
+                        </div>
+                        <span className="font-sans text-sm font-semibold text-[var(--ink)] truncate">
+                          {name}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setIsEditingName(true)}
+                        className="text-xs text-[var(--ink-muted)] hover:text-[var(--gold)] underline shrink-0 cursor-pointer ml-2"
+                        title="Ubah nama jika perlu"
+                      >
+                        Ubah
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <FieldLabel>Nama Lengkap</FieldLabel>
+                      {isAutoFilled && isEditingName && (
+                        <button
+                          type="button"
+                          onClick={() => setIsEditingName(false)}
+                          className="text-[11px] text-[var(--ink-muted)] hover:text-[var(--gold)] underline cursor-pointer mb-2"
+                        >
+                          Batal Ubah
+                        </button>
+                      )}
+                    </div>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Tulis nama Anda..."
+                      autoComplete="name"
+                      className="w-full px-4 py-3.5 rounded-xl font-sans text-sm bg-white/90 border border-[var(--gold)]/30 text-[var(--ink)] placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/40 focus:border-[var(--gold)] focus:bg-white transition-all min-h-[48px]"
+                    />
+                  </div>
+                )}
               </div>
 
               {/* Kehadiran */}
