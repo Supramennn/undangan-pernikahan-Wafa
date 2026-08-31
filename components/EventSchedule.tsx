@@ -28,6 +28,15 @@ function CupIcon() {
   );
 }
 
+function extractEmbedUrl(urlOrIframe?: string): string | undefined {
+  if (!urlOrIframe) return undefined;
+  if (urlOrIframe.startsWith("http://") || urlOrIframe.startsWith("https://")) {
+    return urlOrIframe;
+  }
+  const match = urlOrIframe.match(/src=["']([^"']+)["']/);
+  return match ? match[1] : urlOrIframe;
+}
+
 interface EventCardProps {
   type: "Akad Nikah" | "Resepsi";
   icon: React.ReactNode;
@@ -44,6 +53,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, map
   const ref         = useRef(null);
   const inView      = useInView(ref, { once: true, margin: "-60px" });
   const [showMap, setShowMap] = useState(false);
+  const safeEmbedUrl = extractEmbedUrl(mapEmbedUrl);
 
   const dateLabel = dateTime.toLocaleDateString("id-ID", {
     weekday: "long",
@@ -138,7 +148,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, map
 
         {/* Collapsible Map Embed */}
         <AnimatePresence>
-          {showMap && mapEmbedUrl && (
+          {showMap && safeEmbedUrl && (
             <motion.div
               className="w-full rounded-2xl overflow-hidden border border-[var(--gold)]/25 relative shadow-inner mt-2"
               style={{ height: 210 }}
@@ -148,7 +158,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, map
               transition={{ duration: 0.4, ease: "easeInOut" }}
             >
               <iframe
-                src={mapEmbedUrl}
+                src={safeEmbedUrl}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -198,7 +208,7 @@ export default function EventSchedule() {
           venue={WEDDING.akad.venue}
           address={WEDDING.akad.address}
           mapsUrl={WEDDING.akad.mapsUrl}
-          mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.273616641577!2d106.79796031536838!3d-6.227608295491823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f14eb25b9679%3A0x6b5a3713d288d66!2sMasjid%20Agung%20Al-Azhar!5e0!3m2!1sid!2sid!4v1689260195563!5m2!1sid!2sid"
+          mapEmbedUrl={WEDDING.akad.mapEmbedUrl}
           delay={0.1}
         />
         <EventCard
@@ -209,7 +219,7 @@ export default function EventSchedule() {
           venue={WEDDING.resepsi.venue}
           address={WEDDING.resepsi.address}
           mapsUrl={WEDDING.resepsi.mapsUrl}
-          mapEmbedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3059424840427!2d106.8071887153681!3d-6.223337995495574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f15191b262e3%3A0xd3b8bbce0c910b23!2sThe%20Ritz-Carlton%20Jakarta%2C%20Pacific%20Place!5e0!3m2!1sid!2sid!4v1689260237731!5m2!1sid!2sid"
+          mapEmbedUrl={WEDDING.resepsi.mapEmbedUrl}
           delay={0.25}
         />
       </div>
