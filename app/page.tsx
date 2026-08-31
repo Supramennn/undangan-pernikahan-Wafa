@@ -11,8 +11,16 @@ import MusicPlayer    from "@/components/MusicPlayer";
 import SectionDivider from "@/components/SectionDivider";
 import GlobalParticles from "@/components/GlobalParticles";
 import { WEDDING }    from "@/lib/config";
+import { formatGuestName } from "@/lib/utils";
 
-export default function Home() {
+interface PageProps {
+  searchParams?: Promise<{ to?: string | string[] }>;
+}
+
+export default async function Home({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const guestName = formatGuestName(params?.to);
+
   return (
     <>
       <Navbar />
@@ -22,7 +30,7 @@ export default function Home() {
         <GlobalParticles />
         
         {/* Hero — amplop interaktif */}
-        <HeroSection />
+        <HeroSection guestName={guestName} />
 
         {/* Mempelai */}
         <CoupleSection />

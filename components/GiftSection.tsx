@@ -21,20 +21,9 @@ function CheckIcon() {
   );
 }
 
-function BankCard({
-  bank,
-  number,
-  holder,
-  delay,
-}: {
-  bank: string;
-  number: string;
-  holder: string;
-  delay: number;
-}) {
+/** Satu baris rekening di dalam card gabungan */
+function BankRow({ bank, number, holder }: { bank: string; number: string; holder: string }) {
   const [copied, setCopied] = useState(false);
-  const ref    = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   async function handleCopy() {
     await navigator.clipboard.writeText(number);
@@ -43,48 +32,51 @@ function BankCard({
   }
 
   return (
-    <motion.div
-      ref={ref}
-      className="glass-card w-full max-w-[92vw] sm:max-w-lg p-6 sm:p-8 flex flex-col items-center text-center z-10"
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay, duration: 0.6 }}
-    >
-      {/* Bank Name */}
-      <h4 className="font-sans font-bold text-sm sm:text-base tracking-widest text-[var(--ink)] mb-6 uppercase">
-        {bank}
-      </h4>
+    <div className="w-full flex flex-col gap-2.5">
+      {/* Bank label */}
+      <div className="flex items-center justify-between">
+        <span className="font-sans font-bold text-xs tracking-widest text-[var(--gold)] uppercase">
+          Bank {bank}
+        </span>
+      </div>
 
-      {/* Number & Copy Group */}
-      <div className="flex items-center gap-4 bg-[#FAF5EB] px-5 py-3 rounded-xl border border-[#F0E6D3] mb-6 flex-wrap justify-center">
-        <span className="font-sans font-bold text-xl sm:text-2xl tracking-[0.1em] text-[var(--gold)]">
+      {/* Number + copy container */}
+      <div
+        className="flex items-center justify-between gap-4 px-5 py-3.5 rounded-xl border transition-all"
+        style={{ 
+          background: "rgba(255, 255, 255, 0.9)", 
+          borderColor: "rgba(156, 119, 84, 0.3)" 
+        }}
+      >
+        <span className="font-sans font-bold text-lg sm:text-xl tracking-[0.08em] text-[var(--ink)]">
           {number}
         </span>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 bg-[#F5EAD4] hover:bg-[#EBDBC1] text-[var(--gold)] px-3 py-1.5 rounded-md font-sans text-xs font-semibold transition-colors"
-          title="Salin Nomor Rekening"
+          className="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-lg font-sans text-xs font-semibold transition-all text-white bg-[var(--gold)] hover:bg-[var(--gold-light)] shadow-xs cursor-pointer active:scale-95"
+          title={`Salin nomor rekening ${bank}`}
         >
           <AnimatePresence mode="wait">
             {copied ? (
-              <motion.span key="check" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
+              <motion.span key="check" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="flex items-center gap-1">
                 <CheckIcon />
+                Tersalin!
               </motion.span>
             ) : (
-              <motion.span key="copy" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
+              <motion.span key="copy" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="flex items-center gap-1">
                 <CopyIcon />
+                Salin
               </motion.span>
             )}
           </AnimatePresence>
-          {copied ? "Tersalin" : "Salin"}
         </button>
       </div>
 
-      {/* Account Holder */}
-      <p className="font-sans text-[var(--ink-muted)] font-light text-sm">
-        a.n. {holder}
+      {/* Holder */}
+      <p className="font-sans text-[var(--ink-muted)] font-light text-xs text-center">
+        Atas Nama: <span className="font-medium text-[var(--ink-soft)]">{holder}</span>
       </p>
-    </motion.div>
+    </div>
   );
 }
 
@@ -119,52 +111,74 @@ export default function GiftSection() {
           }}
         >
           Doa restu Anda adalah hadiah yang paling berarti bagi kami.
-          Namun jika Anda berkenan memberikan hadiah kasih sayang,
-          Anda dapat mengirimkannya melalui rekening berikut.
         </p>
       </motion.div>
 
-      {/* Individual Bank Cards */}
       <div className="flex flex-col gap-6 w-full items-center mt-4">
-        {WEDDING.bankAccounts.map((acc, i) => (
-          <BankCard
-            key={acc.bank}
-            bank={acc.bank}
-            number={acc.number}
-            holder={acc.holder}
-            delay={i * 0.12}
-          />
-        ))}
 
-        {/* Physical Gift Address Card (Example matching reference) */}
+        {/* ── Satu card gabungan semua rekening ── */}
         <motion.div
-          className="glass-card w-full max-w-[92vw] sm:max-w-lg p-6 sm:p-8 flex flex-col items-center text-center z-10"
+          className="glass-card w-full max-w-[480px] p-7 sm:p-9 md:p-10 flex flex-col items-center gap-6 z-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.1, duration: 0.6 }}
+        >
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--gold)]" />
+            <p className="label" style={{ color: "var(--gold)" }}>Transfer Bank</p>
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--gold)]" />
+          </div>
+
+          <div className="w-full flex flex-col gap-6">
+            {WEDDING.bankAccounts.map((acc, i) => (
+              <div key={acc.bank} className="w-full flex flex-col gap-6">
+                <BankRow bank={acc.bank} number={acc.number} holder={acc.holder} />
+                {/* Divider antara rekening — kecuali yang terakhir */}
+                {i < WEDDING.bankAccounts.length - 1 && (
+                  <div className="hr-thin w-full" style={{ opacity: 0.4 }} />
+                )}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── Card kirim hadiah fisik ── */}
+        <motion.div
+          className="glass-card w-full max-w-[480px] p-7 sm:p-9 md:p-10 flex flex-col items-center text-center gap-4 z-10"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ delay: 0.24, duration: 0.6 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
         >
-          <h4 className="font-sans font-bold text-sm sm:text-base tracking-widest text-[var(--ink)] mb-4 uppercase">
-            Kirim Hadiah Fisik
-          </h4>
-          <p className="font-sans text-[var(--ink)] font-medium text-sm mb-2">
-            Penerima: {WEDDING.groom.nickname} & {WEDDING.bride.nickname}
-          </p>
-          <p className="font-sans text-[var(--ink-muted)] font-light text-sm mb-6 leading-relaxed max-w-sm">
-            {WEDDING.akad.address} {/* Using Akad address as a fallback for gift address */}
-          </p>
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--gold)]" />
+            <p className="label" style={{ color: "var(--gold)" }}>Kirim Hadiah Fisik</p>
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--gold)]" />
+          </div>
+          <div className="hr-thin w-16 my-1" style={{ opacity: 0.5 }} />
+          
+          <div className="flex flex-col gap-1.5">
+            <p className="font-sans text-[var(--ink)] font-semibold text-sm sm:text-base">
+              Penerima: {WEDDING.groom.nickname} &amp; {WEDDING.bride.nickname}
+            </p>
+            <p className="font-sans text-[var(--ink-muted)] font-light text-xs sm:text-sm leading-relaxed max-w-sm">
+              {WEDDING.akad.address}
+            </p>
+          </div>
+
           <button
             onClick={() => {
               navigator.clipboard.writeText(WEDDING.akad.address);
               alert("Alamat berhasil disalin!");
             }}
-            className="flex items-center gap-1.5 bg-[#F5EAD4] hover:bg-[#EBDBC1] text-[var(--gold)] px-4 py-2 rounded-md font-sans text-sm font-semibold transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-3.5 px-6 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all text-white bg-[var(--gold)] hover:bg-[var(--gold-light)] shadow-xs mt-2 cursor-pointer active:scale-98"
             title="Salin Alamat Lengkap"
           >
             <CopyIcon />
             Salin Alamat Lengkap
           </button>
         </motion.div>
+
       </div>
     </section>
   );

@@ -195,8 +195,8 @@ body {
 ───────────────────────────────────────────── */
 .section-wrap {
   position: relative;
-  padding-block: 80px;
-  padding-inline: 20px;
+  padding-block: 72px;
+  padding-inline: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -204,11 +204,14 @@ body {
   overflow: hidden;
 }
 
+@media (min-width: 480px) {
+  .section-wrap { padding-inline: 24px; }
+}
 @media (min-width: 640px) {
-  .section-wrap { padding-block: 112px; padding-inline: 32px; }
+  .section-wrap { padding-block: 104px; padding-inline: 36px; }
 }
 @media (min-width: 1024px) {
-  .section-wrap { padding-block: 144px; }
+  .section-wrap { padding-block: 128px; }
 }
 
 /* Section divider wave */
@@ -251,20 +254,62 @@ body {
 }
 
 /* ─────────────────────────────────────────────
-   SOLID CARD (CLEAN ELEGANT STYLE)
-───────────────────────────────────────────── */
+   ELEGANT CARD — Luxury Double Border / Borderlist Frame
+─────────────────────────────────────────────── */
 .glass-card {
   position: relative;
-  background: #FFFFFF;
-  border-radius: 20px;
-  border: none;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--card-bg) 100%);
+  border-radius: 22px;
+  border: 1.5px solid var(--gold);
+  box-shadow:
+    0 2px 10px rgba(156, 119, 84, 0.08),
+    0 10px 30px rgba(44, 36, 32, 0.06);
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Inner decorative frame line (lis border emas) */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 16px;
+  border: 1px solid rgba(156, 119, 84, 0.22);
+  pointer-events: none;
+  z-index: 1;
+  transition: border-color 0.4s ease;
+}
+
+/* Subtle top ambient sheen */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    transparent 40%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Konten dalam card selalu di atas ::before & ::after */
+.glass-card > * {
+  position: relative;
+  z-index: 2;
 }
 
 .glass-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-color: var(--gold-light);
+  box-shadow:
+    0 4px 16px rgba(156, 119, 84, 0.15),
+    0 16px 40px rgba(44, 36, 32, 0.09);
+}
+
+.glass-card:hover::after {
+  border-color: rgba(156, 119, 84, 0.35);
 }
 
 /* Media (mis. thumbnail Google Maps) yang ditempel di dalam card —

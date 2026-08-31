@@ -97,9 +97,9 @@ export default function Guestbook() {
       </motion.div>
 
       <motion.div
-        className="glass-card relative z-10 w-full max-w-[92vw] sm:max-w-lg
-          p-6 sm:p-8
-          max-h-[440px] sm:max-h-[520px] overflow-y-auto scroll-elegant"
+        className="glass-card relative z-10 w-full max-w-[480px]
+          p-7 sm:p-9 md:p-10
+          max-h-[480px] sm:max-h-[520px] overflow-y-auto scroll-elegant"
         initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.2, duration: 0.8 }}

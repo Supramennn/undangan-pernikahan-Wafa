@@ -96,9 +96,12 @@ function FloatingParticle({ delay, x, size }: { delay: number; x: number; size: 
 }
 
 /* ──── Main component ──── */
-export default function HeroSection() {
+interface HeroSectionProps {
+  guestName?: string;
+}
+
+export default function HeroSection({ guestName = "Tamu Undangan" }: HeroSectionProps) {
   const [stage, setStage] = useState<Stage>("preloading");
-  const [guestName, setGuestName] = useState("");
 
   useEffect(() => {
     // Elegant preloader before showing the cover
@@ -112,13 +115,6 @@ export default function HeroSection() {
     document.body.style.overflow = stage === "open" ? "" : "hidden";
     return () => { document.body.style.overflow = ""; };
   }, [stage]);
-
-  // Read guest name from URL: ?to=Nama+Tamu
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const to = params.get("to");
-    if (to) setGuestName(decodeURIComponent(to));
-  }, []);
 
   function handleOpen() {
     if (stage !== "closed") return;
@@ -301,17 +297,20 @@ export default function HeroSection() {
               </motion.p>
               
               <motion.div
-                className="flex flex-col items-center gap-1 mb-8"
+                className="flex flex-col items-center gap-1.5 mb-8 max-w-[320px] sm:max-w-md px-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.3, duration: 0.7 }}
               >
-                <span style={{ fontFamily: "var(--font-sans)" }} className="text-xs sm:text-sm tracking-widest uppercase opacity-60">Yth</span>
-                {guestName ? (
-                   <span style={{ fontFamily: "var(--font-serif)" }} className="text-xl sm:text-2xl font-medium mt-1">{guestName}</span>
-                ) : (
-                   <span style={{ fontFamily: "var(--font-serif)" }} className="text-lg sm:text-xl font-medium mt-1">Bapak / Ibu / Saudara/i</span>
-                )}
+                <span className="text-xs uppercase tracking-[0.25em] text-[var(--gold-pale)] opacity-80 font-sans">
+                  Kepada Yth.
+                </span>
+                <span 
+                  className="text-xl sm:text-2xl md:text-3xl font-serif font-medium mt-1 text-white break-words text-center leading-snug"
+                  style={{ textShadow: "0 2px 12px rgba(0,0,0,0.45)" }}
+                >
+                  {guestName}
+                </span>
               </motion.div>
 
               <motion.button

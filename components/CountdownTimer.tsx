@@ -19,7 +19,6 @@ function getTimeLeft() {
 
 /* ── Dot separator removed for cleaner box layout ── */
 
-/* ── Animated time unit ── */
 function TimeUnit({
   value,
   label,
@@ -31,27 +30,34 @@ function TimeUnit({
 }) {
   return (
     <motion.div
-      className="flex flex-col items-center justify-center relative"
+      className="flex flex-col items-center justify-center relative flex-1 min-w-0"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.6, ease: "easeOut" }}
     >
       <div 
-        className="relative flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-xl"
-        style={{ border: "1px solid rgba(184,151,106,0.25)", background: "rgba(255,255,255,0.4)" }}
+        className="relative flex items-center justify-center w-full aspect-square max-w-[84px] min-w-[62px] sm:min-w-[76px] p-2 sm:p-3 rounded-2xl shadow-xs"
+        style={{ 
+          border: "1px solid rgba(156,119,84,0.3)", 
+          background: "rgba(255,255,255,0.85)" 
+        }}
       >
         <motion.span
           key={value}
-          className="text-2xl sm:text-3xl"
-          initial={{ opacity: 0.6, scale: 0.8, y: -5 }}
+          className="text-2xl sm:text-4xl font-serif text-[var(--ink)]"
+          initial={{ opacity: 0.6, scale: 0.85, y: -4 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.3, type: "spring" }}
-          style={{ color: "var(--ink)", fontWeight: 400 }}
+          style={{ fontWeight: 400 }}
         >
           {String(value).padStart(2, "0")}
         </motion.span>
       </div>
-      <span className="mt-2 text-[10px] sm:text-xs uppercase tracking-wider" style={{ fontWeight: 500, color: "var(--ink-muted)" }}>{label}</span>
+      <span 
+        className="mt-2.5 text-xs uppercase tracking-wider font-sans font-medium text-[var(--gold)]"
+      >
+        {label}
+      </span>
     </motion.div>
   );
 }
@@ -147,7 +153,7 @@ export default function CountdownTimer() {
       </motion.div>
 
       {/* Cards Wrapper */}
-      <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 w-full mt-6">
+      <div className="relative z-10 flex flex-col items-center gap-8 w-full mt-6">
         {/* Sparkles around countdown */}
         {sparkles.map((s) => (
           <motion.div
@@ -161,14 +167,14 @@ export default function CountdownTimer() {
 
         {/* Countdown card */}
         <motion.div
-          className="glass-card relative p-6 sm:p-8 w-full max-w-[92vw] sm:max-w-lg overflow-hidden"
+          className="glass-card relative p-7 sm:p-9 md:p-10 w-full max-w-[480px]"
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
           {/* Shimmer animation */}
           <motion.div
-            className="absolute inset-0 z-0 pointer-events-none"
+            className="absolute inset-0 z-0 pointer-events-none rounded-[22px] overflow-hidden"
             style={{
               background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
               transform: "skewX(-20deg)",
@@ -180,73 +186,28 @@ export default function CountdownTimer() {
 
           <div className="relative z-10 flex justify-center">
             {time ? (
-              <div className="flex items-end justify-center gap-3 sm:gap-5 w-full">
+              <div className="flex items-end justify-between gap-2.5 sm:gap-4 w-full">
                 <TimeUnit value={time.days}    label="Hari"   delay={0.3} />
                 <TimeUnit value={time.hours}   label="Jam"    delay={0.4} />
                 <TimeUnit value={time.minutes} label="Menit"  delay={0.5} />
                 <TimeUnit value={time.seconds} label="Detik"  delay={0.6} />
               </div>
             ) : (
-              <div className="flex items-end justify-center gap-3 sm:gap-5 w-full">
+              <div className="flex items-end justify-between gap-2.5 sm:gap-4 w-full">
                 {["Hari","Jam","Menit","Detik"].map((l) => (
-                  <div key={l} className="flex flex-col items-center opacity-30">
+                  <div key={l} className="flex flex-col items-center flex-1 min-w-0 opacity-40">
                     <div 
-                      className="relative flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-xl"
-                      style={{ border: "1px solid rgba(184,151,106,0.25)", background: "rgba(255,255,255,0.4)" }}
+                      className="relative flex items-center justify-center w-full aspect-square max-w-[84px] min-w-[62px] sm:min-w-[76px] p-2 sm:p-3 rounded-2xl shadow-xs"
+                      style={{ border: "1px solid rgba(156,119,84,0.3)", background: "rgba(255,255,255,0.75)" }}
                     >
-                      <span className="text-2xl sm:text-3xl">--</span>
+                      <span className="text-2xl sm:text-4xl font-serif">--</span>
                     </div>
-                    <span className="mt-2 text-[10px] sm:text-xs uppercase tracking-wider">{l}</span>
+                    <span className="mt-2.5 text-xs uppercase tracking-wider font-sans font-medium text-[var(--gold)]">{l}</span>
                   </div>
                 ))}
               </div>
             )}
           </div>
-        </motion.div>
-
-        {/* Venue card */}
-        <motion.div
-          className="glass-card relative p-6 sm:p-8 w-full max-w-[92vw] sm:max-w-lg text-center flex flex-col items-center gap-6"
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.4, duration: 0.8 }}
-        >
-          {/* Reduced clutter: removed heavy corner borders */}
-
-          <span className="label">Lokasi Acara</span>
-
-          <div>
-            <p
-              className="display text-xl sm:text-2xl"
-              style={{ color: "var(--ink)" }}
-            >
-              Gedung Serbaguna
-            </p>
-            <p
-              className="mt-2 text-sm sm:text-base leading-relaxed"
-              style={{ fontFamily: "var(--font-sans)", color: "var(--ink-muted)", fontWeight: 300 }}
-            >
-              Jl. Contoh Alamat No. 123<br />Kota, Provinsi
-            </p>
-          </div>
-
-          <div className="hr-thin" />
-
-          <a
-            href="https://maps.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline group overflow-hidden relative"
-          >
-            <motion.div 
-              className="absolute inset-0 bg-[var(--gold-pale)] opacity-0 group-hover:opacity-10 transition-opacity duration-300" 
-            />
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true" className="relative z-10 group-hover:-translate-y-0.5 transition-transform">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-              <circle cx="12" cy="9" r="2.5" />
-            </svg>
-            <span className="relative z-10">Petunjuk Arah</span>
-          </a>
         </motion.div>
       </div>
     </section>
