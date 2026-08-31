@@ -118,7 +118,7 @@ export default function GiftSection() {
 
         {/* ── Satu card gabungan semua rekening ── */}
         <motion.div
-          className="glass-card w-full max-w-[480px] p-7 sm:p-9 md:p-10 flex flex-col items-center gap-6 z-10"
+          className="glass-card w-full max-w-[480px] p-6 sm:p-8 md:p-10 flex flex-col items-center gap-6 z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1, duration: 0.6 }}
@@ -144,7 +144,7 @@ export default function GiftSection() {
 
         {/* ── Card kirim hadiah fisik ── */}
         <motion.div
-          className="glass-card w-full max-w-[480px] p-7 sm:p-9 md:p-10 flex flex-col items-center text-center gap-4 z-10"
+          className="glass-card w-full max-w-[480px] p-6 sm:p-8 md:p-10 flex flex-col items-center text-center gap-4 z-10"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}

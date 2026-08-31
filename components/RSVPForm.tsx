@@ -98,7 +98,7 @@ export default function RSVPForm({ guestName: propGuestName }: RSVPFormProps) {
 
       {/* Card */}
       <motion.div
-        className="glass-card relative z-10 w-full max-w-[480px] p-7 sm:p-9 md:p-10"
+        className="glass-card relative z-10 w-full max-w-[480px] p-6 sm:p-8 md:p-10"
         initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.2, duration: 0.8 }}

@@ -167,7 +167,7 @@ export default function CountdownTimer() {
 
         {/* Countdown card */}
         <motion.div
-          className="glass-card relative p-7 sm:p-9 md:p-10 w-full max-w-[480px]"
+          className="glass-card relative p-6 sm:p-8 md:p-10 w-full max-w-[480px]"
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2, duration: 0.8 }}

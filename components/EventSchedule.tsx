@@ -55,7 +55,7 @@ function EventCard({ type, icon, dateTime, endTime, venue, address, mapsUrl, map
   return (
     <motion.div
       ref={ref}
-      className="glass-card relative w-full p-7 sm:p-9 md:p-10 flex flex-col items-center justify-between text-center"
+      className="glass-card relative w-full p-6 sm:p-8 md:p-10 flex flex-col items-center justify-between text-center"
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay, duration: 0.6 }}
