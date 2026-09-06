@@ -85,12 +85,12 @@ export const WEDDING = {
     {
       bank:      "BCA",
       /** Nomor rekening — akan ada tombol Salin */
-      number:    "1234567890",
+      number:    "0990561168",
       holder:    "Prayoga Aenul Wafa",
     },
     {
-      bank:      "Mandiri",
-      number:    "0987654321",
+      bank:      "BCA",
+      number:    "0991221858",
       holder:    "Saylunada",
     },
   ],
