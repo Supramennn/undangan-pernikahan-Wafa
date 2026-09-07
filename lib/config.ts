@@ -51,9 +51,9 @@ export const WEDDING = {
   // ──────────────────────────────────────────────────
   akad: {
     /** Tanggal & waktu mulai (format ISO 8601 dengan timezone) */
-    dateTime:   new Date("2026-09-12T08:00:00+07:00"),
+    dateTime:   new Date("2026-09-21T08:00:00+07:00"),
     /** Waktu selesai (untuk Add to Calendar) */
-    endTime:    new Date("2026-09-12T10:00:00+07:00"),
+    endTime:    new Date("2026-09-21T10:00:00+07:00"),
     /** Nama gedung / tempat */
     venue:      "Kediaman Mempelai Wanita",
     /** Alamat lengkap */
